@@ -1,7 +1,8 @@
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const {countries} = require('./countries.js');
+const {countries} = require('./countriesRoute.js');
+const {nameQuery} = require('./countryNameQuery.js')
 
 const router = Router();
 
@@ -10,9 +11,8 @@ const router = Router();
 
 router.use('/countries', countries);  //!Revisar
 
-/* router.get('/countries', (req, res) => {
-  res.send("Esto es una prueba")
-}) */
+//! ACOMODAR LA RUTA BIEN! ESta ruta eS:  "/countries/name"
+router.use('/name', nameQuery);
 
 router.get('*', (req, res) => {
   console.log(req.url)
