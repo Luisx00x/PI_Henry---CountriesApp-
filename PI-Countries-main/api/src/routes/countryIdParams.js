@@ -1,5 +1,7 @@
  const {Country} = require("../db.js")
 
+ //TODO Falta que se traiga la información de actividades turisticas correspondiente
+
  async function countryId (req, res, next){
 
   let {country} = req.params; 
