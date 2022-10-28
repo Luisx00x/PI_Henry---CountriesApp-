@@ -3,16 +3,18 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const {countries} = require('./countriesRoute.js');
 const {nameQuery} = require('./countryNameQuery.js')
+const {countryId} = require('./countryIdParams.js')
 
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.use('/countries', countries);  //!Revisar
+router.use('/countries/name', nameQuery);
 
-//! ACOMODAR LA RUTA BIEN! ESta ruta eS:  "/countries/name"
-router.use('/name', nameQuery);
+router.use('/countries/:country', countryId);
+
+router.use('/countries', countries); 
 
 router.get('*', (req, res) => {
   console.log(req.url)

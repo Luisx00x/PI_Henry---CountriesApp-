@@ -1,6 +1,8 @@
 const axios = require("axios")
 const {Country} = require("../db.js")
 
+//TODO PODRIA CAMBIARLO POR UN FINDORCREATE PARA EVITAR LA DUPLICIDAD Y LOS PROBLEMAS DE COLISION
+
 async function countries (req, res, next) {
   try{
     let externalApiCall = await axios('https://restcountries.com/v3/all');
@@ -24,10 +26,10 @@ async function countries (req, res, next) {
 
       })
 
-    await Promise.all(map);
+     await Promise.all(map);
 
     const findData = await Country.findAll({
-    //  attributes:['flag','name','continent']
+      attributes:['flag','name','continent']
     });
 
     res.status(200).json(findData)
