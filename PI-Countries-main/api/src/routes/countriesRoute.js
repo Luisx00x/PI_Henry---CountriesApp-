@@ -1,7 +1,7 @@
 const axios = require("axios")
 const {Country} = require("../db.js")
 
-//TODO PODRIA CAMBIARLO POR UN FINDORCREATE PARA EVITAR LA DUPLICIDAD Y LOS PROBLEMAS DE COLISION
+//TODO PODRIA CAMBIARLO POR UN FINDORCREATE PARA EVITAR LA DUPLICIDAD Y LOS PROBLEMAS DE COLISION.
 
 async function countries (req, res, next) {
   try{

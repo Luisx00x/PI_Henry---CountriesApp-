@@ -9,7 +9,7 @@ async function nameQuery (req, res, next){
   
   if(name){
 
-    //TODO => Podria poner esta validacion al traer el dato, pasando la letra a minuscula
+    //TODO => Podria poner esta validacion al traer el dato, pasando la letra a Minuscuilas
     name = name.split("");
     name[0] = name[0].toUpperCase();
     name = name.join("")

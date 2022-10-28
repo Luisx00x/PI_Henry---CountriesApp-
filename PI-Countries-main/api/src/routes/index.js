@@ -10,6 +10,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+//RUTA NUEVA*
 router.use('/countries/name', nameQuery);
 
 router.use('/countries/:country', countryId);
