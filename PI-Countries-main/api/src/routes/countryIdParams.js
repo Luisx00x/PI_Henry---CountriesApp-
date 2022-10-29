@@ -4,11 +4,21 @@
 
  async function countryId (req, res, next){
 
-  let {country} = req.params; 
+  try{
 
-  let details = await Country.findByPk(country);
+    let {country} = req.params; 
 
-  (!details) ? res.status(400).send("BAD REQUEST") : res.send(details);
+    let details = await Country.findByPk(country);
+
+  //  (!details) ? res.status(400).send("BAD REQUEST") : res.send(details);
+
+    if(details) return res.send(details);
+
+    throw new Error("BAD REQUEST");
+
+  }catch(error){
+    next(error);
+  }
 
  }
 

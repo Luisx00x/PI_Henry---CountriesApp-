@@ -20,8 +20,14 @@ async function countries (req, res, next) {
             capital: String(el.capital),
             sub_region: String(el.subregion),
             area: el.area,
-            population: el.population
+            population: el.population,
+            nameTranslations: Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common
           })
+
+          //Asi es como estoy buscando para que regrese el arreglo como string y para que regrese el arreglo
+          //console.log(Object.entries(el.translations).map( i => i[1].common))
+          //TODO busqueda que funciona para español e ingles
+          Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common
         }
 
       })
