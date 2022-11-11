@@ -1,0 +1,17 @@
+
+.countries{
+  margin: 0 2%;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid red;
+  justify-content: center ;
+}
+
+.pagination{
+  margin: auto;
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid grey
+}

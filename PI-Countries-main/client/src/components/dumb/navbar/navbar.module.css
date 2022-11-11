@@ -1,0 +1,14 @@
+
+.nav{
+  margin: 10px auto;
+  width: 95%;
+  display: flex;
+  background-color: #999;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  font-size: 200%;
+  padding-right: 30%;
+}

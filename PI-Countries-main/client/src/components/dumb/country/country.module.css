@@ -1,0 +1,15 @@
+
+img{
+  width: 50%;
+  height: 50%;
+  object-fit: fill;
+}
+
+.country{
+  margin: 1%;
+  border: 1px solid black;
+  border-radius: 15px;
+  width: 50vh;
+  padding: 2%;
+  background-color: #bbb;
+}
