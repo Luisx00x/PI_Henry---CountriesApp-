@@ -19,6 +19,9 @@ module.exports = sequelize => {
         }
     },
     {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: true,
+        createdAt: "Agregado en",
+        updatedAt: "Actualizada"
     });
 };

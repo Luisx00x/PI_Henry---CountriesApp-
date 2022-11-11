@@ -27,7 +27,7 @@ async function countries (req, res, next) {
           //Asi es como estoy buscando para que regrese el arreglo como string y para que regrese el arreglo
           //console.log(Object.entries(el.translations).map( i => i[1].common))
           //TODO busqueda que funciona para español e ingles
-          Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common
+          //Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common
         }
 
       })
@@ -35,7 +35,7 @@ async function countries (req, res, next) {
      await Promise.all(map);
 
     const findData = await Country.findAll({
-      attributes:['flag','name','continent']
+      attributes:['flag','name','continent','ID']
     });
 
     res.status(200).json(findData)

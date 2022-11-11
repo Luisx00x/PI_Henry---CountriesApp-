@@ -28,13 +28,14 @@ module.exports = (sequelize) => {
       //TODO codigo que funciona para español e ingles
       type: DataTypes.STRING
       //TODO
-      //PASANDOLE UN EL ARREGLO Y CONVETIDO A STRING AQUI (TIENE QUE SER TEXT PORQUE ES UN STRING LARGO)
+      //!PASANDOLE UN EL ARREGLO Y CONVETIDO A STRING AQUI (TIENE QUE SER TEXT PORQUE ES UN STRING LARGO)
       /* type: DataTypes.TEXT,
       set(obj){
         const val = obj
         this.setDataValue('nameTranslations', val.join(", "));
       } */
-    
+      //!PASNADO EL ARREGLO
+      //type: DataTypes.ARRAY(DataTypes.STRING)
     },
     flag: {
       type: DataTypes.STRING,

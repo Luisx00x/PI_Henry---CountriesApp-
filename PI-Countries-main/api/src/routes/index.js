@@ -2,8 +2,9 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const {countries} = require('./countriesRoute.js');
-const {nameQuery} = require('./countryNameQuery.js')
-const {countryId} = require('./countryIdParams.js')
+const {nameQuery} = require('./countryNameQuery.js');
+const {countryId} = require('./countryIdParams.js');
+const {addActivities} = require("./addActivities.js");
 
 const router = Router();
 
@@ -11,11 +12,13 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 //RUTA NUEVA*
-router.use('/countries/name', nameQuery);
-
 router.use('/countries/:country', countryId);
 
+router.use('/countries', nameQuery);
 router.use('/countries', countries); 
+
+
+router.use('/activities', addActivities)
 
 router.get('*', (req, res) => {
   console.log(req.url)

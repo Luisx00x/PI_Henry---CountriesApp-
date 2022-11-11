@@ -1,5 +1,5 @@
 const {Country} = require("../db.js")
-const {Op, Sequelize} = require("sequelize");
+const {Op} = require("sequelize");
 
 
 //Base para query
@@ -19,7 +19,7 @@ async function nameQuery (req, res, next){
       let result = await Country.findAll({
         
         /* attributes: {
-          exclude: ['nameTranslations']
+          exclude: ['name']
         }, */
         
         where: {
@@ -39,7 +39,7 @@ async function nameQuery (req, res, next){
           //TODO
 
           //! ESTE FUNCIONA CASI PERFECTO PARA USAR TODOS LOS IDIOMAS
-          /* [Op.or]:{
+         /*  [Op.or]:{
             
             name: {
               [Op.like] : `${name}%`
@@ -49,8 +49,8 @@ async function nameQuery (req, res, next){
               [Op.substring]: `${name}`
             }
 
-          } */
-
+          }
+ */
           
           //?FUNCIONAL PERO NO TOMA LOS nameTrasnlations QUE NO MATCHEAN
           /* [Op.or]:{
@@ -94,7 +94,7 @@ async function nameQuery (req, res, next){
       
     }
 
-  throw new Error("No se ha introducido ningún país para la busqueda");
+  next();
     
   }catch(error){
     next(error);

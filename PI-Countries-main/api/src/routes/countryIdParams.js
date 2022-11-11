@@ -1,4 +1,5 @@
  const {Country} = require("../db.js")
+ const {Activity} = require("../db.js")
 
  //TODO Falta que se traiga la información de actividades turisticas correspondiente
 
@@ -8,7 +9,11 @@
 
     let {country} = req.params; 
 
-    let details = await Country.findByPk(country);
+    let details = await Country.findByPk(country,{
+      include:[{
+        model: Activity
+      }]
+    });
 
   //  (!details) ? res.status(400).send("BAD REQUEST") : res.send(details);
 
