@@ -32,7 +32,7 @@ async function countries (req, res, next) {
 
       })
 
-     await Promise.all(map);
+    await Promise.all(map);
 
     const findData = await Country.findAll({
       attributes:['flag','name','continent','ID']

@@ -15,6 +15,7 @@ const router = Router();
 router.use('/countries/:country', countryId);
 
 router.use('/countries', nameQuery);
+
 router.use('/countries', countries); 
 
 

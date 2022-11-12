@@ -1,0 +1,15 @@
+
+.landingImg{
+  margin: 1% auto;
+  border-radius: 3%;
+}
+
+.landingTitle{
+  width: 100%;
+  margin: auto;
+}
+
+.landingButton{
+  font-size: 150%;
+  width: 40%;
+}

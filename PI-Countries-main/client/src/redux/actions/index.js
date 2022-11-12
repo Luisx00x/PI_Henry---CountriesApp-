@@ -1,4 +1,3 @@
-import axios from 'axios'
 
 export function init (){
   return function(dispatch){
@@ -49,7 +48,43 @@ export function searchID(data){
     dispatch(loading()); 
     fetch(`http://localhost:3001/countries?name=${data}`)  
     .then( res => res.json())
+  //  .then( res => console.log(res))
     .then( res => dispatch(addCountries(res)))        // <===== AQUI
     .catch( error => console.log(error))
+  }
+}
+
+export function searchCountryByID(data){
+  return function(dispatch){
+    dispatch(loading());
+    fetch(`http://localhost:3001/countries/${data}`)
+    .then( res => res.json())
+    .then( res => dispatch(addCountry(res)))
+    .catch( error => console.log(error))
+  }
+}
+
+export function addCountry(payload){
+  return {
+    type: "ADD_COUNTRY",
+    payload
+  }
+}
+
+export function ascendSort(){
+  return {
+    type: "ASCEND_SWITCH"
+  }
+}
+
+export function descendSort(){
+  return {
+    type: "DESCEND_SWITCH"
+  }
+}
+
+export function populationSort(){
+  return {
+    type: "POPULATION_SWITCH"
   }
 }

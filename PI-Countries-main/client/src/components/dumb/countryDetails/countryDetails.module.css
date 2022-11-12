@@ -1,0 +1,11 @@
+
+.flagImg{
+  width: 30%;
+  border: 1px solid #000
+}
+
+.datasheet{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

@@ -88,7 +88,7 @@ async function nameQuery (req, res, next){
         }
       });  
 
-      (result.length === 0) ? res.status(200).send("No se ha encontrado coincidencia con ningún país")
+      (result.length === 0) ? res.status(200).json("No se ha encontrado coincidencia con ningún país")
       : res.status(200).send(result);
       return;
       

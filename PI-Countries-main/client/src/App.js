@@ -3,6 +3,7 @@ import Navbar from './components/dumb/navbar/navbar.jsx';
 import Countries from './components/smart/countries/countries.jsx';
 import {Route} from 'react-router-dom';
 import Landing from './components/dumb/landing/landing';
+import Details from './components/smart/details/details.jsx';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <Route path={"/countries"}>
       <Navbar />
       </Route>
-      <Route path={"/countries"} render={() => <Countries/>} />
+      <Route path={"/countries"} exact render={() => <Countries/>} />
+      <Route path={"/countries/:id"} exact render = { () => <Details/>}/>
     </div>
   );
 }
