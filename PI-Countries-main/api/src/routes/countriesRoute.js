@@ -5,6 +5,7 @@ const {Country} = require("../db.js")
 
 async function countries (req, res, next) {
   try{
+    
     let externalApiCall = await axios('https://restcountries.com/v3/all');
 
     let map = externalApiCall.data.map( async el => {
@@ -14,14 +15,15 @@ async function countries (req, res, next) {
       if(!verification){      
           await Country.create({
             ID: el.cca3,
-            name: el.name.common,
+            name: Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common,
             flag: el.flags[0],
-            continent: el.continents[0],
+           /*  continent: el.continents[0], */
+            continent: el.region,
             capital: String(el.capital),
             sub_region: String(el.subregion),
             area: el.area,
             population: el.population,
-            nameTranslations: Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common
+            nameTranslations: el.name.common
           })
 
           //Asi es como estoy buscando para que regrese el arreglo como string y para que regrese el arreglo
@@ -38,7 +40,7 @@ async function countries (req, res, next) {
       attributes:['flag','name','continent','ID']
     });
 
-    res.status(200).json(findData)
+   res.status(200).json(findData)
 
   }catch(error){
     next(error)

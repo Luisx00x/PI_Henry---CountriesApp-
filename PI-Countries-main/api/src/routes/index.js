@@ -5,6 +5,7 @@ const {countries} = require('./countriesRoute.js');
 const {nameQuery} = require('./countryNameQuery.js');
 const {countryId} = require('./countryIdParams.js');
 const {addActivities} = require("./addActivities.js");
+const filters = require('./countriesFilter.js');
 
 const router = Router();
 
@@ -15,6 +16,8 @@ const router = Router();
 router.use('/countries/:country', countryId);
 
 router.use('/countries', nameQuery);
+
+router.use('/countries', filters)
 
 router.use('/countries', countries); 
 
