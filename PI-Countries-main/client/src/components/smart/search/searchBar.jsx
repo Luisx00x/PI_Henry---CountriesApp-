@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import s from './searchBar.module.css';
-import {search, searchID} from '../../../redux/actions'
+import {resetPag, search, searchID} from '../../../redux/actions'
 
 function SearchBar (props){
 
   const [input, setInput] = useState(""); //Recibe como valor inicial un estado vacio
+
+  const dispatch = useDispatch();
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -20,6 +22,7 @@ function SearchBar (props){
       setInput("");
       //console.log(props.searching)
       props.searchID(props.searching);
+      dispatch(resetPag())
     }}>
       <input 
         type="text"

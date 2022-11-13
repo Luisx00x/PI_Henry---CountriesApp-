@@ -5,8 +5,33 @@ export function init (){
     return fetch('http://localhost:3001/countries')
     .then( res => res.json())
   //  .then( res => console.log(res))
+    .then( res => {
+      dispatch(addCountries(res))
+      dispatch(fillAll(res))
+    })
+    /* .then( res => dispatch(fetchFromApi(res)))
+    .then( res => dispatch(addCountries(res.payload[0])))   */   //Este dispath agrega los paises a countries
+    .catch( error => console.log(error))
+  }
+}
+
+export function fillAll(payload){
+  return {
+    type: "FILL_ALL",
+    payload
+  }
+}
+
+export function orderBy(filter, order, country){
+
+  return function (dispatch){
+    dispatch(loading());
+    fetch(`http://localhost:3001/countries?filter=${filter}&type=${order}&country=${country}`)
+    .then( res => res.json())
     .then( res => dispatch(addCountries(res)))
     .catch( error => console.log(error))
+    if(filter === "population")dispatch(populationSort());
+    if(filter === "name") dispatch(namesSort());
   }
 }
 
@@ -23,6 +48,20 @@ export function loading (){
   }
 }
 
+export function firstElement(payload){
+  return {
+    type: "FIRST_ELEMENT",
+    payload
+  }
+}
+
+export function nextPage(payload){
+  return {
+    type: "NEXT_PAGE",
+    payload
+  }
+}
+
 export function nextButton(){
   return {
     type: "NEXT"
@@ -32,6 +71,12 @@ export function nextButton(){
 export function prevButton(){
   return {
     type: "PREV"
+  }
+}
+
+export function resetPag(){
+  return {
+    type: "RESET_PAG"
   }
 }
 
@@ -71,20 +116,14 @@ export function addCountry(payload){
   }
 }
 
-export function ascendSort(){
-  return {
-    type: "ASCEND_SWITCH"
-  }
-}
-
-export function descendSort(){
-  return {
-    type: "DESCEND_SWITCH"
-  }
-}
-
 export function populationSort(){
   return {
     type: "POPULATION_SWITCH"
+  }
+}
+
+export function namesSort(){
+  return {
+    type: "NAMES_SWITCH"
   }
 }

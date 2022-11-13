@@ -9,7 +9,7 @@ export default class Country extends React.Component{
 
   render(){
 
-    let {name, flag, continent, id} = this.props;
+    let {name, flag, continent, id, population} = this.props;
     //console.log(this.props)
 
     return (
@@ -17,6 +17,7 @@ export default class Country extends React.Component{
         <img src={flag} alt="country-flag"/>
         <h2><NavLink exact to={`/countries/${id}`}>{name}</NavLink></h2>
         <h3>{continent}</h3>
+        <h3>{population}</h3>
       </div>
     )
   }

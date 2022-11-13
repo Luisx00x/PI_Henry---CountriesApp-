@@ -1,16 +1,19 @@
 
 const initialState = {
+  allCountries: [],
   countries: [],
   country: [],
   loading: false,
   actualPage: 0,
   search: "",
-  ascend: false,
-  descend: false,
-  population: false,
+  names: "ASC",
+  firstElement: 0,
+  nextPage: 9,
+  population: "DESC"
 }
 
 export default function reducer(state = initialState, action){
+    
     switch(action.type){
 
       case "ADD_COUNTRIES":
@@ -18,6 +21,12 @@ export default function reducer(state = initialState, action){
           ...state,
           loading: false,
           countries: action.payload
+        }
+
+      case "FILL_ALL":
+        return {
+          ...state,
+          allCountries: action.payload
         }
 
       case "ADD_COUNTRY":
@@ -33,10 +42,22 @@ export default function reducer(state = initialState, action){
           loading: true
         }
 
-      case "NEXT":
+      case "NEXT_PAGE":
         return {
           ...state,
-          actualPage: state.actualPage + 1
+          nextPage: state.firstElement + action.payload
+        }
+
+      case "FIRST_ELEMENT":
+        return {
+          ...state,
+          firstElement: state.actualPage * action.payload
+        }
+        
+        case "NEXT":
+          return {
+            ...state,
+            actualPage: state.actualPage + 1
         }
       
       case "PREV":
@@ -44,31 +65,31 @@ export default function reducer(state = initialState, action){
           ...state,
           actualPage: state.actualPage - 1
         }
+
+      case "RESET_PAG":
+        return {
+          ...state,
+          actualPage: 0,
+          firstElement: 0,
+          nextPage: 9
+        }
       
       case "SEARCH_INPUT":
         return {
           ...state,
           search: action.payload
         }
-
-      case "ASCEND_SWITCH":
+        
+      case "NAMES_SWITCH":
         return {
           ...state,
-          ascend: true,
-          descend: false
+          names: state.names === "DESC" ? "ASC" : "DESC"
         }
-
-      case "DESCEND_SWITCH":
-        return {
-          ...state,
-          descend: true,
-          ascend: false
-        }
-      
+        
       case "POPULATION_SWITCH":
         return {
           ...state,
-          population: state.population ? false : true
+          population: state.population === "DESC" ? "ASC" : "DESC"
         }
 
       default: 
