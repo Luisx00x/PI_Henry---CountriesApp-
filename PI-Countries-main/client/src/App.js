@@ -4,6 +4,7 @@ import Countries from './components/smart/countries/countries.jsx';
 import {Route} from 'react-router-dom';
 import Landing from './components/dumb/landing/landing';
 import Details from './components/smart/details/details.jsx';
+import Activities from './components/smart/activities/activities';
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <Navbar />
       </Route>
       <Route path={"/countries"} exact render={() => <Countries/>} />
+      <Route path={"/activities"} render={() => <Navbar/>}></Route>
+      <Route path={"/activities"} exact render={ () => <Activities/>} />
       <Route path={"/countries/:id"} exact render = { () => <Details/>}/>
     </div>
   );

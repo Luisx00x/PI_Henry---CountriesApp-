@@ -11,11 +11,12 @@ export default function Pagination (props) {
 
   const actualPage = useSelector( state => state.actualPage );
 
-  const allCountries = useSelector( state => state.allCountries);
+  const countries = useSelector( state => state.countries);
+  console.log(countries, "Countries")
 
   const currentIndex = useSelector( state => state.nextPage);
 
-  const maxLength = allCountries.length;
+  const maxLength = countries.length;
 
   let numberOfPages = 10
   
@@ -23,7 +24,8 @@ export default function Pagination (props) {
 
   function nextbuttonHandler (){
 
-    if(currentIndex === maxLength) return
+      //el elemento esta al final   la longitud es menor a min-ele
+    if(currentIndex === maxLength || maxLength < numberOfPages || currentIndex > maxLength) return
 
     dispatch(nextButton())
     dispatch(firstElement(numberOfPages))
@@ -47,16 +49,16 @@ export default function Pagination (props) {
       
       <button onClick={prevButtonHandler}>Anterior</button>
       {actualPage < 9 ?
-      <p> {actualPage},
-          {actualPage + 1},
+      <p> {actualPage + 1},
           {actualPage + 2},
           {actualPage + 3},
+          {actualPage + 4},
           ..., Aqui va la ultima pag </p> :
 
         <p> ...,
-            {actualPage - 1},
+            {actualPage - 3},
             {actualPage - 2},
-            {actualPage - 3}
+            {actualPage - 1}
         </p>
       }
         

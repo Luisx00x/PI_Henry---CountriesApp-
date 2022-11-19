@@ -5,9 +5,11 @@ import s from './countryDetails.module.css'
 
 export default function CountryDetails (props) {
 
-  const {nameTranslations, area, flag, continent, sub_region, activities, capital, population, ID} = props.props;
+  const {nameTranslations, area, flag, continent, sub_region, Activities, capital, population, ID} = props.props;
 
   const history = useHistory();
+
+  console.log(Activities)
 
   return (
     <div className={s.datasheet}>
@@ -20,13 +22,20 @@ export default function CountryDetails (props) {
         <p><b>Sub Region: </b>{sub_region}</p>
         <p><b>Área: </b> {area}</p>
         <p><b>Población: </b>{population}</p>
-        <h3>Actividades</h3>
-        <ul>
+      </div>
 
-          {activities !== undefined ? activities.map( element => <li>{element.name}</li>) : 
-          <p>No hay actividades registradas en este país.</p>}
-        
+      <div>
+
+        <h3>Actividades</h3>
+      <ul>
+          {Activities ? 
+          ( Activities.length > 0 ? Activities.map( element => {
+            return <li key={element.id}><b>{element.name}</b> Dificultad: {element.dificulty} Duración: {element.duration} Temporada: {element.season} </li> }) : 
+          <p>No hay actividades turisticas registradas para este país</p>) : 
+          null}
+          {/* Tiene que ser un condicional null porque la primera vez que monta es un undefined */}
         </ul>
+
       </div>
 
       <div>

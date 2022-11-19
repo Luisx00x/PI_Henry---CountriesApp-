@@ -5,19 +5,21 @@ const {Country} = require('../db.js');
 async function addActivities (req, res, next){
   try{
   
-    let {name, dificulty, duration, season, countryAsociation} = req.body;
+    let {name, dificulty, duration, season, countryAsociations} = req.body;
 
-    if(name && dificulty && duration && season && countryAsociation.length>0){
+    console.log(req.body, "BODY DENTRO DE LA RUTA")
+
+    if(name && dificulty && duration && season && countryAsociations.length>0){
 
       const verification = await Country.findAll({
         where: {
             ID:{
-              [Op.any]: countryAsociation
+              [Op.any]: countryAsociations
           }
         }
       });
 
-      if(verification.length === 0) throw new Error("No hay paises cargados en la base de datos"); 
+      if(verification.length === 0) throw new Error("No se encuentra el país en la base de datos"); 
 
       const searchActivity = await Activity.findOne({
         where:{
@@ -35,11 +37,11 @@ async function addActivities (req, res, next){
             duration,
             season
           });
-          await newActivity.addCountry(countryAsociation)
+          await newActivity.addCountry(countryAsociations)
           return res.status(200).send("Done!")
       }
       
-      searchActivity.addCountry(countryAsociation);
+      searchActivity.addCountry(countryAsociations);
       return res.send("DONE DONE DONE")
     }
 

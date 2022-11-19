@@ -2,7 +2,7 @@ import React from 'react';
 import Country from '../../dumb/country/country.jsx';
 import {connect} from 'react-redux';
 import { init, nextButton, populationSort, prevButton, orderBy, addCountries, resetPag} from '../../../redux/actions';
-import { selectHandler } from './Handlers.js';
+import { selectHandler, activitiesHandler, selectsReset } from './Handlers.js';
 
 import s from './countries.module.css';
 import Pagination from '../pagination/pagination.jsx';
@@ -12,64 +12,83 @@ class Countries extends React.Component{
     super(props)
     this.state = {
       continentSort: "DESC",
-      continentSelect: false
+      continentSelect: false,     //Para el boton adicional
+      selected: "all",             //Maneja el select
+      activitySelected: "none"
     }
+  }
+
+  //! Handler del select
+
+  changeContinentHandler = (e) =>{
+    this.setState( prev => {
+      return {
+        ...prev,
+        selected: e.target.value
+      }
+    })
+  }
+
+  changeActivityHandler = (e) =>{
+    this.setState( prev => {
+      return {
+        ...prev,
+        activitySelected: e.target.value
+      }
+    })
   }
   
   componentDidMount(){                        //Esta funcion la tengo que manejar asincronamente con un dispatch
     this.props.getCountries();
   }
 
-  componentDidUpdate(){
-    console.log(this.props.countries, "ACTUALIZO")
-  }
-
   render(){
 
-    /* let numberOfPages;
+    //!HANDLER BOTON ADICIONAL
+    function optionalButtonHandler (setState){
+      setState( prev =>{
+        return {
+          ...prev,
+          continentSelect: false
+        }
+      })
+    }
 
-    (this.props.actualPage === 0) ? numberOfPages = 9 : numberOfPages = 10
+  console.log(this.props.countries)
 
-    let firstElement = this.props.actualPage * numberOfPages;
-    
-    let nextPage = firstElement + numberOfPages; */
+  console.log(this.state, "ESTADO")
 
     return (
       <div>
-
-      {/* Paginacion */}
 
       <Pagination prev={this.props.prev} next={this.props.next}></Pagination>
 
      {/*  <div className={s.pagination}>
 
-      <button onClick={this.props.prev}>Anterior</button>
-      {this.props.actualPage < 9 ?
-      <p> {this.props.actualPage},
-          {this.props.actualPage + 1},
-          {this.props.actualPage + 2},
-          {this.props.actualPage + 3},
-          ..., Aqui va la ultima pag </p> :
-
-        <p> ...,
-            {this.props.actualPage - 1},
-            {this.props.actualPage - 2},
-            {this.props.actualPage - 3}
-        </p>
-      }
-        
-      <button onClick={this.props.next}>Siguiente</button>
-      </div> */}
-      
-      {/*  */}
-
       {/* Botones de ordenamiento */}
 
       <div>
-        {/* <button onClick={this.props.ascendOption}>ascendente</button> */}
-        {/* Podria usar handles */}
 
-        {/* //? BOTON ADICIONAL */}
+        {this.props.activities.length > 0 ? 
+        <select value={this.state.activitySelected} onChange={this.changeActivityHandler}>
+          <option
+          onClick={ () => selectsReset(this.props.add, this.setState.bind(this), this.props.allCountries) } 
+          value="none">-- Seleccione una actividad --</option>
+          {this.props.activities ? this.props.activities.map( element => {
+            return <option 
+            key={element} 
+            value={element}
+            onClick={(e) => {
+              activitiesHandler(e, this.props.order, this.setState.bind(this), this.props.reset)
+            }}>{element}</option>
+          }) : null}
+        </select> : null}
+
+        {console.log(this.state.activitySelected)}
+
+        {/* <button onClick={() => this.props.order("activities", this.props.activities, "Senderismo")}>Ordenar por</button> */}
+
+        {/* //? BOTON ADICIONAL // CUANDO SELECTED !== ALL DEBE CAMBIAR POR UN BOTON PARA MOSTRAR TODOS LOS PAISES*/}
         {this.state.continentSelect ? null : <button onClick={ () => {
           if(this.state.continentSort === "DESC"){
             this.props.countries.sort( (a,b) => {
@@ -102,51 +121,65 @@ class Countries extends React.Component{
           this.props.add(newCountries)
         }} */}
 
-        <select>
-          <option value="all" onClick={() => {
-            this.props.add(this.props.allCountries)
-            this.setState( prev => {
-              return {
-                ...prev,
-                continentSelect: false
-              }
-            })
-            }}>Mostrar todos</option>
+        {/* //TODO ACOMODAR LAS OPTIONS EL SELECT */}
+        <select id="select" value={this.state.selected} onChange={this.changeContinentHandler} >
+          <option value="all" onClick={() => selectsReset(this.props.add, this.setState.bind(this), this.props.allCountries)}>Mostrar todos</option>
           
+          {/* HAcer una arreglo con el nombre de los paises y mapear las opciones */}
           <option value ="Americas" onClick={(e) => {
-            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this))
+            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this), this.props.reset)
             }}>Americas</option>
 
           <option value ="Europe" onClick={(e) => {
-            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this))
+            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this), this.props.reset)
             }}>Europe</option>
             
           <option value ="Oceania" onClick={(e) => {
-            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this))           
+            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this), this.props.reset)           
             }}>Oceania</option>
 
           <option value ="Africa" onClick={(e) => {
-            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this))
+            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this), this.props.reset)
             }}>Africa</option>
           
           <option value ="Asia" onClick={(e) => {
-            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this))
+            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this), this.props.reset)
             }}>Asia</option>
           
           <option value ="Antarctic" onClick={(e) => {
-            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this))
+            selectHandler(e, this.props.allCountries, this.props.add, this.setState.bind(this), this.props.reset)
             }}>Antartic</option>
         </select>
 
-        <button onClick={this.props.descendOption}>descendente</button>
-
-        {this.props.search.length > 0 ? <button onClick={() =>{
+          {/* //TODO simplificacion del handler: hacer solo 1 boton y meter el map en un condicional: si this.props.search.length MAY 0, hacer el map, sino sigue */}
+       
+        {/* //!COPIA DEL BOTON */}
+        {/* {this.props.search.length > 0 ? <button onClick={() =>{
           let newCountries = this.props.countries.map( element => element.name).join();
           this.props.order("name", this.props.names, newCountries)
+          this.props.reset();
         }}>Alfabetico search</button> : 
-        <button onClick={ () => this.props.order("name",this.props.names)}>alfabetico all</button>}
+        <button onClick={ () => {
+          this.props.order("name",this.props.names)
+          this.props.reset();
+          this.setState( prev => {
+            return {
+              ...prev,
+              selected: "all"
+            }
+          })
+          optionalButtonHandler(this.setState.bind(this));
+          } }>alfabetico all</button>}   */}
 
-        {this.props.search.length>0 ? <button onClick={() =>{
+        {<button onClick={() =>{
+          //TODO PODRIA QUITAR EL ELSE, no esta entrando
+            let newCountries = this.props.countries.map( element => element.name).join();
+            this.props.order("name", this.props.names, newCountries)
+            this.props.reset();
+          //  optionalButtonHandler(this.setState.bind(this))
+        }}>Alfabetico search</button>}
+
+        {/* {this.props.search.length>0 ? <button onClick={() =>{
           let newCountries = this.props.countries.map( element => element.name).join()
           this.props.order("population",this.props.population, newCountries)
           this.props.reset();
@@ -154,37 +187,29 @@ class Countries extends React.Component{
         <button onClick={() => {
           this.props.order("population",this.props.population)
           this.props.reset()
-          } }>poblacion all</button>}
+          this.setState( prev => {
+            return {
+              ...prev,
+              selected: "all"
+            }
+          })
+          optionalButtonHandler(this.setState.bind(this))
+          } }>poblacion all</button>} */}
+
+          {<button onClick={() =>{
+            let newCountries;
+            if(this.props.countries.length < this.props.allCountries.length){
+              newCountries = this.props.countries.map( element => element.name).join()
+            }else{
+              newCountries = "undefined"
+            }
+          this.props.order("population",this.props.population, newCountries)
+          this.props.reset();
+          //optionalButtonHandler(this.setState.bind(this))
+        }}>poblacion search</button>}
       </div>
       
         <div className={s.countries}>
-          {console.log(this.props.actualPage, "actualPage")}
-          {console.log(this.props.countries, "countries")}
-          {console.log(this.props.population)}
-          {console.log(this.props.dataFromApi)}   {/* Sacar esta prop luego, solo para pruebas */}
-
-        {/* Descendente */}
-          {
-            /* !this.props.length >= 0 && this.props.descend === true ? console.log(this.props.countries.sort( (a,b) => {
-              if(a.name > b.name) return 1
-              if(a.name < b.name) return -1
-              return 0
-            } ), "sort") : null */
-          }
-
-        {/* Ascendente */}
-          {
-            /* !this.props.length >= 0 && this.props.ascend === true ? console.log(this.props.countries.sort( (a,b) => {
-              if(a.name > b.name) return -1
-              if(a.name < b.name) return 1
-              return 0
-            } ), "sort") : null */
-          }
-
-          {console.log(this.props.firstElement, "ELEMENTO INICIAL DE CONTEO")}
-          {console.log(this.props.countries.slice(this.props.firstElement, this.props.nextPage), "Sslice")}
-          {console.log(this.props.firstElement, "FistElement")}
-          {console.log(this.props.nextPage, "Next pag")}
 
           { 
             !this.props.loading ? ( typeof this.props.countries !== "string" ? this.props.countries.slice(this.props.firstElement , this.props.nextPage).map( ele => {
@@ -202,15 +227,14 @@ function mapStatesToProps(state){
   return{
     allCountries: state.allCountries,
     countries: state.countries,
-    loading: state.loading,
     actualPage: state.actualPage,    //Solo para probar
-    ascend: state.ascend,
-    descend: state.descend,
+    loading: state.loading,
     population: state.population,
     search: state.search,
     names: state.names,
     firstElement: state.firstElement,
-    nextPage: state.nextPage
+    nextPage: state.nextPage,
+    activities: state.activities
   }
 }
 

@@ -1,5 +1,6 @@
 const axios = require("axios")
 const {Country} = require("../db.js")
+const {Activity} = require("../db.js")
 
 //TODO PODRIA CAMBIARLO POR UN FINDORCREATE PARA EVITAR LA DUPLICIDAD Y LOS PROBLEMAS DE COLISION.
 
@@ -40,7 +41,11 @@ async function countries (req, res, next) {
       attributes:['flag','name','continent','ID']
     });
 
-   res.status(200).json(findData)
+    let options = await Activity.findAll({
+      attributes: ['name']
+    })
+
+   res.status(200).json({findData,options})
 
   }catch(error){
     next(error)

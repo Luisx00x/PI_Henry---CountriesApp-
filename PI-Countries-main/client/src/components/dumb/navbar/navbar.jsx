@@ -11,6 +11,7 @@ export default class Navbar extends React.Component{
       return (
       <nav className={s.nav}>
         <h1 className={s.title}><NavLink to='/countries'>Henry Countries</NavLink></h1>
+        <NavLink to='/activities'>Activities</NavLink>
         <SearchBar />
         {/* <label className={s.searchLabel}>Buscar un país:</label>
         <input type="text" name='searchCountry' placeholder='Nombre de país...' />

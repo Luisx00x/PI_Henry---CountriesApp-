@@ -12,17 +12,16 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-//RUTA NUEVA*
-router.use('/countries/:country', countryId);
+//RUTA NUEVA*  PASAR A GET Y PROBAR
+router.get('/countries/:country', countryId);
 
-router.use('/countries', nameQuery);
+router.get('/countries', nameQuery);
 
-router.use('/countries', filters)
+router.get('/countries', filters);
 
-router.use('/countries', countries); 
+router.get('/countries', countries); 
 
-
-router.use('/activities', addActivities)
+router.post('/activities', addActivities)
 
 router.get('*', (req, res) => {
   console.log(req.url)

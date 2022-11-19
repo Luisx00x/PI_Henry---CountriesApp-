@@ -9,7 +9,8 @@ const initialState = {
   names: "ASC",
   firstElement: 0,
   nextPage: 9,
-  population: "DESC"
+  population: "DESC",
+  activities: []
 }
 
 export default function reducer(state = initialState, action){
@@ -26,8 +27,16 @@ export default function reducer(state = initialState, action){
       case "FILL_ALL":
         return {
           ...state,
+          loading: false,
+          countries: action.payload,
           allCountries: action.payload
         }
+
+        /* case "FILL_ALL":
+          return {
+            ...state,
+            allCountries: action.payload
+          } */
 
       case "ADD_COUNTRY":
         return {
@@ -79,7 +88,13 @@ export default function reducer(state = initialState, action){
           ...state,
           search: action.payload
         }
-        
+
+       case "ACTIVITIES_FILTER":
+        return {
+          ...state,
+          activities: action.payload
+        }
+         
       case "NAMES_SWITCH":
         return {
           ...state,

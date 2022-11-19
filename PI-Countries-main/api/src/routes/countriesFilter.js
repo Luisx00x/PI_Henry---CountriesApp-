@@ -1,15 +1,17 @@
 
 const {Country} = require('../db.js');
 const {Op} = require('sequelize');
+const {Activity} = require("../db.js")
+const {conn} = require("../db.js")
 
 async function filters (req, res, next){
   try{
 
-    let {filter, type, country} = req.query;
+    let {filter, type, value} = req.query;
 
     if(filter){
       if(filter === "population"){
-        if(country === "undefined"){
+        if(value === "undefined"){
           const orderPopulation = await Country.findAll({
             attributes:['flag','name','population','ID'],
             order: [
@@ -19,12 +21,12 @@ async function filters (req, res, next){
           return res.status(200).json(orderPopulation)
         }
         else{
-          country = country.split(",");
+          value = value.split(",");
           const orderPopulation = await Country.findAll({
             attributes: ['flag','name','population','ID'],
             where: {
               name: {
-                [Op.any]: country
+                [Op.any]: value
               }
             },
             order: [
@@ -36,7 +38,7 @@ async function filters (req, res, next){
       }
 
       if(filter === "name"){
-        if(country === "undefined"){
+        if(value === "undefined"){
           const orderPopulation = await Country.findAll({
             attributes:['flag','name','continent','ID'],
             order: [
@@ -46,12 +48,12 @@ async function filters (req, res, next){
           return res.status(200).json(orderPopulation)
         }
         else{
-          country = country.split(",");
+          value = value.split(",");
           const orderPopulation = await Country.findAll({
             attributes: ['flag','name','continent','ID'],
             where: {
               name: {
-                [Op.any]: country
+                [Op.any]: value
               }
             },
             order: [
@@ -61,9 +63,22 @@ async function filters (req, res, next){
           return res.status(200).json(orderPopulation)
         }
       }
-    }
 
-    next()
+      if(filter === "activities"){
+        if(value !== "undefined"){
+          const orderPopulation = await Activity.findAll({
+            attributes: ["name"],
+            include: {
+              model: Country, attributes: ['name','capital','continent','ID','flag']
+            },
+            where: {
+              ['name']:[value]
+            }
+          })
+          return res.status(200).json(orderPopulation)
+        }
+      }
+    }   next()
 
   }catch(error){
     next(error)

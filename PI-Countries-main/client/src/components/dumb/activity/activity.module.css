@@ -1,0 +1,54 @@
+
+.flag{
+  width: 1.5em;
+}
+
+.subTitle{
+  margin: 0;
+}
+
+.list_container{
+  margin: auto;
+  width: 80%;
+  display: flex;
+  border: solid 1px black;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.item{
+  margin: 1%;
+  flex-basis: 45%;
+}
+
+.formStyle{
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: auto 15% 0;
+  min-width: fit-content;
+}
+
+.select{
+  margin: 1% auto;
+}
+
+.form_item{
+  text-align: left;
+  border: 1px solid green;
+}
+
+.error{
+  padding-left: 1%;
+  color: #F55;
+  font-size: small;
+}
+
+.errorField{
+  border: 2px solid #F55;
+}
+
+.errorField:focus {
+  outline: 1px solid #F55;
+}
