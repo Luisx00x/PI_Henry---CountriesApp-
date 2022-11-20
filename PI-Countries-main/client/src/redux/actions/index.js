@@ -92,6 +92,13 @@ export function prevButton(){
   }
 }
 
+export function setPage(payload){
+  return {
+    type: "SET_PAGE",
+    payload
+  }
+}
+
 export function resetPag(){
   return {
     type: "RESET_PAG"

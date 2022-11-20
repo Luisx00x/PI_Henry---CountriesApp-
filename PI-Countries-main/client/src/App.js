@@ -10,13 +10,13 @@ function App() {
   return (
     <div className="App">
       <Route path={"/"} exact component={Landing}/>
-      <Route path={"/countries"}>
+      <Route path={"/home"}>
       <Navbar />
       </Route>
-      <Route path={"/countries"} exact render={() => <Countries/>} />
+      <Route path={"/home"} exact render={() => <Countries/>} />
       <Route path={"/activities"} render={() => <Navbar/>}></Route>
       <Route path={"/activities"} exact render={ () => <Activities/>} />
-      <Route path={"/countries/:id"} exact render = { () => <Details/>}/>
+      <Route path={"/home/:id"} exact render = { () => <Details/>}/>
     </div>
   );
 }

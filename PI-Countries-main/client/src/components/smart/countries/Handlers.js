@@ -1,27 +1,24 @@
+import { addCountries as add, resetPag as reset } from "../../../redux/actions";
 
-export const selectHandler = (e, countries, addFunction, setState, reset) => {
-  let newCountries = countries.filter( element => element.continent === e.target.value)
-  addFunction(newCountries)
-  setState( prev => {
-    return {
-      ...prev,
-      continentSelect : true
-    }
-  })
-  reset();
-}
+export function orderContinent (sort, countries, setContinentSort) {
+  let newCountries;
 
-export function activitiesHandler(e, order, set, reset){
-  order("activities", "undefined", e.target.value);
-  reset()
-}
-
-export function selectsReset (add, set, countries) {
-  add(countries)
-  set( prev => {
-    return {
-      ...prev,
-      continentSelect: false,
-    }
-  })
+  if(sort === "DESC"){
+    newCountries = countries.sort( (a,b) => {
+      if(a.continent > b.continent) return 1
+      if(a.continent < b.continent) return -1
+      else return 0
+    })
   }
+    if(sort === "ASC"){
+    newCountries = countries.sort( (a,b) => {
+      if(a.continent > b.continent) return -1
+      if(a.continent < b.continent) return 1
+      else return 0
+    })
+  }
+  add(newCountries);
+  reset();
+  setContinentSort(sort === "DESC" ? "ASC" : "DESC");
+
+}

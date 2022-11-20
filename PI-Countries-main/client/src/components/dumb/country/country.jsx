@@ -14,10 +14,14 @@ export default class Country extends React.Component{
 
     return (
       <div className={s.country}>
+      <NavLink exact to={`/home/${id}`}>
+      <div>
         <img src={flag} alt="country-flag"/>
-        <h2><NavLink exact to={`/countries/${id}`}>{name}</NavLink></h2>
+        <h2>{name}</h2>
         <h3>{continent}</h3>
         <h3>{population}</h3>
+      </div>
+      </NavLink>
       </div>
     )
   }

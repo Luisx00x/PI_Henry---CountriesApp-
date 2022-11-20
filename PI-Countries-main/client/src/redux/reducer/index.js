@@ -75,6 +75,12 @@ export default function reducer(state = initialState, action){
           actualPage: state.actualPage - 1
         }
 
+      case "SET_PAGE":
+        return {
+          ...state,
+          actualPage: action.payload
+        }
+
       case "RESET_PAG":
         return {
           ...state,

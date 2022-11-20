@@ -104,7 +104,7 @@ export default function Activity (props) {
 
           <div className={s.select}>
             <input disabled={ error.nameError || error.dificultyError || error.durationError ||
-            error.season || input.name === "" || input.duration < 1 || input.countryAsociations < 1 ? true : false} type="submit" value="Enviar" onClick={ (e) => props.submit(input, e)}/>
+            error.season || input.name === "" || input.duration < 1 || input.countryAsociations < 1 ? true : false} type="submit" value="Crear actividad turistica" onClick={ (e) => props.submit(input, e)}/>
           </div>
         </form>
 
