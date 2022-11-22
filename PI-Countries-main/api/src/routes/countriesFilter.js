@@ -20,6 +20,7 @@ async function filters (req, res, next){
           })
           return res.status(200).json(orderPopulation)
         }
+
         else{
           value = value.split(",");
           const orderPopulation = await Country.findAll({
@@ -39,17 +40,18 @@ async function filters (req, res, next){
 
       if(filter === "name"){
         if(value === "undefined"){
-          const orderPopulation = await Country.findAll({
+          const orderName = await Country.findAll({
             attributes:['flag','name','continent','ID'],
             order: [
               ['name', type]
             ]
           })
-          return res.status(200).json(orderPopulation)
+          return res.status(200).json(orderName)
         }
+
         else{
           value = value.split(",");
-          const orderPopulation = await Country.findAll({
+          const orderName = await Country.findAll({
             attributes: ['flag','name','continent','ID'],
             where: {
               name: {
@@ -60,13 +62,13 @@ async function filters (req, res, next){
               ['name', type]
             ]
           })
-          return res.status(200).json(orderPopulation)
+          return res.status(200).json(orderName)
         }
       }
 
       if(filter === "activities"){
         if(value !== "undefined"){
-          const orderPopulation = await Activity.findAll({
+          const orderActivities = await Activity.findAll({
             attributes: ["name"],
             include: {
               model: Country, attributes: ['name','capital','continent','ID','flag']
@@ -75,10 +77,11 @@ async function filters (req, res, next){
               ['name']:[value]
             }
           })
-          return res.status(200).json(orderPopulation)
+          return res.status(200).json(orderActivities)
         }
       }
-    }   next()
+    }   
+    next()
 
   }catch(error){
     next(error)

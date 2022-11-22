@@ -18,7 +18,6 @@ async function countries (req, res, next) {
             ID: el.cca3,
             name: Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common,
             flag: el.flags[0],
-           /*  continent: el.continents[0], */
             continent: el.region,
             capital: String(el.capital),
             sub_region: String(el.subregion),
@@ -27,10 +26,6 @@ async function countries (req, res, next) {
             nameTranslations: el.name.common
           })
 
-          //Asi es como estoy buscando para que regrese el arreglo como string y para que regrese el arreglo
-          //console.log(Object.entries(el.translations).map( i => i[1].common))
-          //TODO busqueda que funciona para español e ingles
-          //Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common
         }
 
       })

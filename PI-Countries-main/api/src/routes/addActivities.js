@@ -7,8 +7,6 @@ async function addActivities (req, res, next){
   
     let {name, dificulty, duration, season, countryAsociations} = req.body;
 
-    console.log(req.body, "BODY DENTRO DE LA RUTA")
-
     if(name && dificulty && duration && season && countryAsociations.length>0){
 
       const verification = await Country.findAll({
@@ -38,14 +36,14 @@ async function addActivities (req, res, next){
             season
           });
           await newActivity.addCountry(countryAsociations)
-          return res.status(200).send("Done!")
+          return res.status(201).json("Actividad creada satisfactoriamente")
       }
       
       searchActivity.addCountry(countryAsociations);
-      return res.send("DONE DONE DONE")
+      return res.status(201).json("Nuevos paises agregados a la actividad satisfactoriamente")
     }
 
-    throw new Error("Activity post: Bad request")
+    res.status(500).json("Activity post: Bad request")
 
   }catch(error){
     next(error);

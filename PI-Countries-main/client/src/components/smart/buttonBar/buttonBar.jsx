@@ -1,17 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectsReset, activitiesHandler, filtersButton, selectHandler} from './Handlers.js'
+import { selectsReset, activitiesHandler, filtersButton, selectHandler, orderContinent} from './Handlers.js'
 
 export default function ButtonBar (props){
 
   const [activitySelected, setActivitySelected] = useState("none");
   const [continentSelect, setContinentSelect] = useState(false);
-  const [continentSort, setContinentSort] = useState("DESC");
   const [selected, setSeleted] = useState("all");
 
   const dispatch = useDispatch();
 
+  const continentSort = useSelector(state => state.continentSort);
   const activities = useSelector(state => state.activities);
   const allCountries = useSelector(state => state.allCountries);
   const countries = useSelector(state => state.countries);
@@ -28,6 +28,7 @@ export default function ButtonBar (props){
         <option
         onClick={ () => selectsReset(setContinentSelect, allCountries, dispatch) } 
         value="none">-- Seleccione una actividad --</option>
+
         {activities ? activities.map( element => {
           return <option 
           key={element} 
@@ -36,14 +37,12 @@ export default function ButtonBar (props){
             activitiesHandler(e, setContinentSelect, dispatch)
           }}>{element}</option>
         }) : null}
+        
       </select> : null}
 
-      {/* //TODO HACER UNA FUNCION PARA TODOS LOS SORT */}
-      {/* BOTON SIN USAR */}
-      {/* {continentSelect ? null : <button onClick={ () => orderContinent(continentSort, countries, setContinentSort, dispatch)}>Ordenar por contienente</button>} */}
-
-      {/* //TODO ACOMODAR LAS OPTIONS EL SELECT */}
-      <select id="select" value={selected} onChange={(e) => setSeleted(e.target.value)} >
+      {continentSelect ? null : <button onClick={ () => orderContinent(continentSort, countries, dispatch)}>Ordenar por contienente</button>}
+      
+      { activitySelected !== "none" ? null : <select id="select" value={selected} onChange={(e) => setSeleted(e.target.value)} >
         <option value="all" onClick={() => selectsReset(setContinentSelect, allCountries, dispatch)}>Mostrar todos</option>
         
         {/* HAcer una arreglo con el nombre de los paises y mapear las opciones */}
@@ -70,11 +69,11 @@ export default function ButtonBar (props){
         <option value ="Antarctic" onClick={(e) => {
           selectHandler(e, allCountries, setContinentSelect, dispatch)
           }}>Antartic</option>
-      </select>
+      </select>}
 
-      {<button onClick={() =>{filtersButton("name", countries, names, dispatch)}}>Alfabetico search</button>}
+      {<button onClick={() =>{filtersButton("name", countries, names, allCountries, dispatch)}}>Alfabetico {names}</button>}
 
-      {<button onClick={() =>{ filtersButton("population",countries, population, dispatch) }}>poblacion search</button>}
+      {<button onClick={() =>{ filtersButton("population",countries, population, allCountries, dispatch) }}>poblacion {population}</button>}
         
       </div>
 

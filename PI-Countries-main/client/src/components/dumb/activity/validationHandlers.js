@@ -33,6 +33,7 @@ function nameValidator (name, set) {
 }
 
 function durationValidator(duration, set){
+  
   if(duration < 0){
     set( prev =>{
       return {
@@ -41,7 +42,7 @@ function durationValidator(duration, set){
       }
     })
   }
-  else if(duration === "0"){
+  else if(duration === 0){
     set ( prev => {
       return {
         ...prev,

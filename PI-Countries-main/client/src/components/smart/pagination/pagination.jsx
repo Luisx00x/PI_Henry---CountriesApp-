@@ -49,13 +49,16 @@ export default function Pagination (props) {
   }
 
   return(
-    <div>
+    <div className={s.paginationBar}>
       { lastPage > 0 ? <div>
 
-      <button onClick={prevButtonHandler}>Anterior</button>
-      
+      <button className={s.paginationButton} onClick={prevButtonHandler}>
+        <img className={s.prevButtonImg} src="http://www.clipartbest.com/cliparts/niB/RBa/niBRBadqT.jpg" alt="prev" onClick={prevButtonHandler}/>
+        <span>Anterior</span>
+      </button>
+        
       {actualPage > 0 ? <span  className={s.paginationItems}onClick={ () => numberButtonHandler(0)}>{1}</span> : null}
-      {actualPage > 3 ? <span className={s.paginationItems}>...</span> : null}
+      {actualPage > 3 ? <label> ... </label> : null}
 
       {actualPage > lastPage - 1 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 5)}>{actualPage - 4}</span> : null}
       {actualPage > lastPage - 2 && lastPage > 5 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 4)}>{actualPage - 3}</span> : null}
@@ -66,17 +69,20 @@ export default function Pagination (props) {
       
       {<span className={s.paginationItemSelected}>{actualPage + 1}</span>}
       
-      {actualPage < lastPage - 1 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 2)}>{actualPage + 2}</span> : null}
-      {actualPage < lastPage - 2 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 3)}>{actualPage + 3}</span> : null}
+      {actualPage < lastPage - 1 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 1)}>{actualPage + 2}</span> : null}
+      {actualPage < lastPage - 2 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 2)}>{actualPage + 3}</span> : null}
     
-      {actualPage < 3 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 4)}>{actualPage + 4}</span> : null}
-      {actualPage < 2 && lastPage > 5 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 5)}>{actualPage + 5}</span> : null}
-      {actualPage < 1 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 6)}>{actualPage + 6}</span> : null}
+      {actualPage < 3 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 3)}>{actualPage + 4}</span> : null}
+      {actualPage < 2 && lastPage > 5 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 4)}>{actualPage + 5}</span> : null}
+      {actualPage < 1 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 5)}>{actualPage + 6}</span> : null}
       
-      {actualPage < lastPage - 3 ? <span className={s.paginationItems}>...</span> : null}
+      {actualPage < lastPage - 3 ? <label> ... </label> : null}
       {actualPage < lastPage ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(lastPage)}>{lastPage + 1}</span> : null}     
-      
-      <button onClick={nextbuttonHandler}>Siguiente</button>
+
+      <button className={s.paginationButton} onClick={nextbuttonHandler}>
+        <span>Siguiente</span>
+        <img className={s.nextButtonImg} src="http://www.clipartbest.com/cliparts/niB/RBa/niBRBadqT.jpg" alt="next"></img>
+      </button>
       
       </div> : null}
     </div>

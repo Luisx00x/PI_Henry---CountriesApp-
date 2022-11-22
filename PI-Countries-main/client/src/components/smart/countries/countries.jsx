@@ -5,7 +5,7 @@ import { init, nextButton, populationSort, prevButton, orderBy, addCountries, re
 
 import s from './countries.module.css';
 import Pagination from '../pagination/pagination.jsx';
-import ButtonBar from '../../dumb/buttonBar/buttonBar.jsx';
+import ButtonBar from '../buttonBar/buttonBar.jsx';
 
 class Countries extends React.Component{
   
@@ -27,7 +27,7 @@ class Countries extends React.Component{
           { 
             !this.props.loading ? ( typeof this.props.countries !== "string" ? this.props.countries.slice(this.props.firstElement , this.props.nextPage).map( ele => {
               return <Country name={ele.name} flag={ele.flag} continent={ele.continent} id={ele.ID} population={ele.population} key={ele.ID}/>
-            }) : <p>{this.props.countries}</p>) : <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="loading" />
+            }) : <p>{this.props.countries}</p>) : <img className={s.loading} src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" alt="loading" />
             
           }
           
@@ -48,6 +48,7 @@ function mapStatesToProps(state){
    // names: state.names,
     firstElement: state.firstElement,
     nextPage: state.nextPage,
+    continentSort: state.continentSort
    // activities: state.activities
   }
 }

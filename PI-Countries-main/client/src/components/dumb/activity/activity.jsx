@@ -32,11 +32,15 @@ export default function Activity (props) {
 
   return (
     <>
-    <button onClick={history.goBack}>Atra</button>
-      <h2>Agregar nueva actividad</h2>
+    <button onClick={history.goBack}>Atras</button>
+      <h2 className={s.title}>Agregar nueva actividad</h2>
+
+      {props.message ? <h3 className={s.successMessage}>{props.message}</h3> : null}
+ 
         <form className={s.formStyle}>
           <div className={s.form_item}>
-            <label>Nombre de actividad: </label><input className={ error.nameError ? s.errorField : null } type="text" name="name" value={input.name} onChange={(e) => {
+            <label className={s.labels}>Nombre de actividad: </label>
+            <input className={ error.nameError ? s.errorField : null } type="text" name="name" value={input.name} onChange={(e) => {
               props.inputHandler(e, setInput)
               nameValidator(e.target.value, setError)
             }
@@ -45,7 +49,7 @@ export default function Activity (props) {
           </div>
           
           <div className={s.form_item}>
-            <label>Dificultad: </label>
+            <label className={s.labels}>Dificultad: </label>
             <select name="dificulty" value={input.dificulty} onChange={(e) => props.inputHandler(e, setInput)}>
               <option>1</option>
               <option>2</option>
@@ -58,8 +62,8 @@ export default function Activity (props) {
           
           <div className={s.form_item}>
           
-            <label>Duración: </label><input type="number" name="duration" value={input.duration} onChange={(e) => {
-              props.inputHandler(e, setInput)
+            <label className={s.labels}>Duración: </label><input type="number" name="duration" value={input.duration} onChange={(e) => {
+              props.durationHandler(e, setInput)
               durationValidator(e.target.value, setError)
               }}/>
             { !error.durationError ? null : <span className={s.error}>{error.durationError}</span>}
@@ -68,7 +72,7 @@ export default function Activity (props) {
           
           <div className={s.form_item}>
 
-            <label>Temporada: </label>
+            <label className={s.labels}>Temporada: </label>
             <select name="season" value = {input.season} onChange={(e) => props.inputHandler(e, setInput)}>
               <option>Verano</option>
               <option>Invierno</option>
@@ -104,8 +108,20 @@ export default function Activity (props) {
 
           <div className={s.select}>
             <input disabled={ error.nameError || error.dificultyError || error.durationError ||
-            error.season || input.name === "" || input.duration < 1 || input.countryAsociations < 1 ? true : false} type="submit" value="Crear actividad turistica" onClick={ (e) => props.submit(input, e)}/>
+            error.season || input.name === "" || input.duration < 1 || typeof input.duration !== "number" || input.countryAsociations < 1 ? true : false} type="submit" value="Crear actividad turistica" onClick={ (e) => {
+              props.submit(input, e);
+              setInput( prev => {
+                return  {
+                  name: "",
+                  dificulty: "1",
+                  duration: 0,
+                  season: "Verano",
+                  countryAsociations: [],
+                }
+              })
+            }}/>
           </div>
+
         </form>
 
     </>

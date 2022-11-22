@@ -3,6 +3,17 @@
   width: 1.5em;
 }
 
+.labels{
+  font-weight: 700;
+}
+
+.title{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: x-large;
+  font-weight: 800;
+  color: #009;
+}
+
 .subTitle{
   margin: 0;
 }
@@ -11,9 +22,10 @@
   margin: auto;
   width: 80%;
   display: flex;
-  border: solid 1px black;
+  border: solid 2px black;
   justify-content: space-around;
   flex-wrap: wrap;
+  background-color: #FFF;
 }
 
 .item{
@@ -22,7 +34,9 @@
 }
 
 .formStyle{
-  border: 1px solid gray;
+  background-color: rgba(0, 0, 100, 0.2);
+  padding: 2%;
+  border-radius:20px;
   display: flex;
   flex-direction: column;
   width: 75%;
@@ -36,7 +50,7 @@
 
 .form_item{
   text-align: left;
-  border: 1px solid green;
+  margin: 0.5% 0
 }
 
 .error{
@@ -51,4 +65,8 @@
 
 .errorField:focus {
   outline: 1px solid #F55;
+}
+
+.successMessage{
+  color: green;
 }

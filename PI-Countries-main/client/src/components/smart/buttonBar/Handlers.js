@@ -1,5 +1,5 @@
 
-import { addCountries, orderBy, resetPag} from "../../../redux/actions";
+import { addCountries, continentSort, orderBy, resetPag} from "../../../redux/actions";
 
 let newCountries;
 
@@ -23,7 +23,7 @@ export function selectsReset (set, countries, dispatch) {
 
 
   //NO LO ESTOY USANDO
-  export function changeContinentHandler (e, set) {
+ /*  export function changeContinentHandler (e, set) {
     set(e.target.value)
   }
   //TAMPOCO
@@ -34,15 +34,16 @@ export function selectsReset (set, countries, dispatch) {
         activitySelected: e.target.value
       }
     })
-  }
+  } */
 
-  export function filtersButton (type, countries, order, dispatch){
-    newCountries = countries.map(element => element.name).join();
+  export function filtersButton (type, countries, order, allCountries, dispatch){
+    if(countries < allCountries ) newCountries = countries.map(element => element.name).join();
+    else newCountries = undefined
     dispatch(orderBy(type, order, newCountries));
     dispatch(resetPag());
   }
 
-  export function orderContinent (sort, countries, setContinentSort, dispatch){
+  export function orderContinent (sort, countries, dispatch){
 
     if(sort === "DESC"){
       newCountries = countries.sort( (a,b) => {
@@ -58,7 +59,7 @@ export function selectsReset (set, countries, dispatch) {
         else return 0
       })
     }
-    dispatch(addCountries(newCountries))
+    dispatch(addCountries(newCountries));
+    dispatch(continentSort());
     dispatch(resetPag());
-    setContinentSort(sort === "DESC" ? "ASC" : "DESC");
   }

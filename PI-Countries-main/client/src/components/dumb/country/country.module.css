@@ -7,9 +7,10 @@ img{
 
 .country{
   margin: 1%;
-  border: 1px solid black;
+ /*  border: 1px solid black; */
   border-radius: 15px;
   width: 50vh;
   padding: 2%;
-  background-color: #bbb;
+  background-color: rgba(180, 205, 245, 0.8);
+  box-shadow: 5px 10px rgb(120, 147, 190);
 }

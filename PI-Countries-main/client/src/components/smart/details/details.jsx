@@ -19,11 +19,6 @@ export default function Details (props){
     dispatch(searchCountryByID(params.id))
   }, [])
 
-  console.log(countryInfo.Activities)
-  console.log(typeof countryInfo.Activities)
-
-  //SOLUCION: hacer otro estado (global o local) donde se almacene el resultado de la busqueda para renderizar
-
   return (
     <>
       <CountryDetails props={countryInfo} />

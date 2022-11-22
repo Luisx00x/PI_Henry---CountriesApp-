@@ -1,8 +1,6 @@
  const {Country} = require("../db.js")
  const {Activity} = require("../db.js")
 
- //TODO Falta que se traiga la información de actividades turisticas correspondiente
-
  async function countryId (req, res, next){
 
   try{
@@ -15,11 +13,9 @@
       }]
     });
 
-  //  (!details) ? res.status(400).send("BAD REQUEST") : res.send(details);
+    if(details) return res.status(200).send(details);
 
-    if(details) return res.send(details);
-
-    throw new Error("BAD REQUEST");
+    return res.send("No se encontraron detalles del pais");
 
   }catch(error){
     next(error);

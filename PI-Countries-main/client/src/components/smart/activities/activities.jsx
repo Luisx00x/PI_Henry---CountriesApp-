@@ -1,9 +1,12 @@
 
 import React from "react";
+import { useState } from "react";
 import Activity from "../../dumb/activity/activity";
 
 export default function Activities (props) {
 
+  const [message, setMessage] = useState("")
+  
   function inputHandler (e, set) {
     set( prev => {
       return {
@@ -11,6 +14,17 @@ export default function Activities (props) {
         [e.target.name]: e.target.value
       }
     })
+  }
+
+  function durationHandler (e, set){
+    if(parseInt(e.target.value) && e.target.value > 0){
+      set( prev => {
+        return {
+          ...prev,
+          duration: parseInt(e.target.value)
+        }
+      })
+    }
   }
 
   function multipleInputHandler (e, set) {
@@ -24,9 +38,11 @@ export default function Activities (props) {
     })
   }
 
+  
   async function postInfo(data, event){      //Data debe ser un objeto
-      event.preventDefault();
-      await fetch('http://localhost:3001/activities', {
+    
+    event.preventDefault();
+    const interMessage = await fetch('http://localhost:3001/activities', {
       mode: 'cors',
       method: 'POST',
       headers: {
@@ -34,14 +50,16 @@ export default function Activities (props) {
       },
       body: JSON.stringify(data)
     })
-    .then(res => console.log(res))
-    .then(res => console.log("SUCCESS", res))
+    .then(res => res.json())
+    .then(res => setMessage(res))
     .catch(error => console.log(error))
-  }
 
+    return interMessage
+  }
+ 
   return (
     <>
-      <Activity submit={postInfo} inputHandler = {inputHandler} multipleInput = {multipleInputHandler}></Activity>
+      <Activity submit={postInfo} inputHandler = {inputHandler} multipleInput = {multipleInputHandler} durationHandler = {durationHandler} message={message}></Activity>
     </>
   )
 

@@ -10,7 +10,8 @@ const initialState = {
   firstElement: 0,
   nextPage: 9,
   population: "DESC",
-  activities: []
+  activities: [],
+  continentSort: "DESC"
 }
 
 export default function reducer(state = initialState, action){
@@ -111,6 +112,12 @@ export default function reducer(state = initialState, action){
         return {
           ...state,
           population: state.population === "DESC" ? "ASC" : "DESC"
+        }
+
+      case "CONTINENT_SWITCH":
+        return {
+          ...state,
+          continentSort: state.continentSort === "DESC" ? "ASC" : "DESC"
         }
 
       default: 
