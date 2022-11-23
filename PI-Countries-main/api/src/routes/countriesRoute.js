@@ -2,8 +2,6 @@ const axios = require("axios")
 const {Country} = require("../db.js")
 const {Activity} = require("../db.js")
 
-//TODO PODRIA CAMBIARLO POR UN FINDORCREATE PARA EVITAR LA DUPLICIDAD Y LOS PROBLEMAS DE COLISION.
-
 async function countries (req, res, next) {
   try{
     
@@ -32,16 +30,20 @@ async function countries (req, res, next) {
 
     await Promise.all(map);
 
-    const findData = await Country.findAll({
+    const findAllCountries = await Country.findAll({
       attributes:['flag','name','continent','ID'],
       order: [
         ['name','ASC']
       ]
     });
 
-    let options = await Activity.findAll()
+    const findData = await Country.findAll({
+      attributes: ['flag','name','continent','ID']
+    })
 
-   res.status(200).json({findData,options})
+    const options = await Activity.findAll()
+
+   res.status(200).json({findData,options, findAllCountries})
 
   }catch(error){
     next(error)

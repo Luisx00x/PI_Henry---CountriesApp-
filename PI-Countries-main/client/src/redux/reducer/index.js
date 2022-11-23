@@ -5,7 +5,6 @@ const initialState = {
   country: [],
   loading: false,
   actualPage: 0,
-  search: "",     //SOLUCIONADO EL SEARCH, TENTATIVO A QUITAR
   firstElement: 0,
   nextPage: 9,
   activities: [],
@@ -27,7 +26,6 @@ export default function reducer(state = initialState, action){
         return {
           ...state,
           loading: false,
-          countries: action.payload,
           allCountries: action.payload
         }
 
@@ -53,7 +51,7 @@ export default function reducer(state = initialState, action){
       case "FIRST_ELEMENT":
         return {
           ...state,
-          firstElement: state.actualPage * action.payload
+          firstElement: state.actualPage === 0 ? 0 : ( state.actualPage * action.payload) - 1
         }
         
         case "NEXT":
@@ -81,29 +79,11 @@ export default function reducer(state = initialState, action){
           firstElement: 0,
           nextPage: 9
         }
-      
-      case "SEARCH_INPUT":
-        return {
-          ...state,
-          search: action.payload
-        }
 
        case "ACTIVITIES_FILTER":
         return {
           ...state,
           activities: action.payload
-        }
-         
-      case "NAMES_SWITCH":
-        return {
-          ...state,
-          names: state.names === "DESC" ? "ASC" : "DESC"
-        }
-        
-      case "POPULATION_SWITCH":
-        return {
-          ...state,
-          population: state.population === "DESC" ? "ASC" : "DESC"
         }
 
       case "CONTINENT_SWITCH":

@@ -6,3 +6,17 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.orderButtons{
+  display: flex;
+  width: 45%;
+  min-width: fit-content;
+  flex-direction: column;
+  border-radius: 15px;
+  padding-bottom: 1%;
+}
+
+.orders{
+  display: flex;
+  justify-content: space-around;
+}

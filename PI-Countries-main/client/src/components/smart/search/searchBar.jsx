@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './searchBar.module.css';
 import {resetPag, searchID} from '../../../redux/actions';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export default function SearchBar (props){
 
@@ -12,20 +13,29 @@ export default function SearchBar (props){
     setInput(e.target.value);
   }
 
+  const location = useLocation();
+
+  const history = useHistory();
+
+  console.log(location)
+
   return (
     <form onSubmit={(e) =>{
       e.preventDefault();
-      dispatch(searchID(input))
+      dispatch(searchID(location.search))
       setInput("");
       dispatch(resetPag())
     }}>
-      <input 
+        <input 
         type="text"
         placeholder="Nombre de país..."
         onChange={handleInput}
         value = {input}
         />
-        <input type="submit" value="Buscar" className={s.button} />
+        <input type="submit" value="Buscar" className={s.button} onClick = { () => {
+         if(input) history.push({search: `name=${input}`})
+         else history.push()
+        }} />
     </form>
   );
 }

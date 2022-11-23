@@ -33,7 +33,14 @@ async function nameQuery (req, res, next){
       
       return;
       
+    } else{
+
+      let result = await Country.findAll();
+      res.status(200).json(result)
+
     }
+
+    return
 
   next();
     

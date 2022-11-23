@@ -18,6 +18,7 @@ export function activitiesHandler(e, set, dispatch){
 
 export function selectsReset (set, countries, dispatch) {
   dispatch(addCountries(countries));
+  dispatch(resetPag());
   set(false)
   }
 

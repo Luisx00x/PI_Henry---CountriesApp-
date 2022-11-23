@@ -10,12 +10,10 @@ function App() {
   return (
     <div className="App">
       <Route path={"/"} exact component={Landing}/>
-      {/* <Route path={"/home"}>
-      <Navbar />
-      </Route> */}
+
       <Route path={["/home","/activities"]} render={() => <Navbar/>}></Route>
 
-      <Route path={"/home"} exact render={() => <Countries/>} />
+      <Route path={"/home"} exact render={({location, history}) => <Countries query={location} history = {history}/>} />
       <Route path={"/activities"} exact render={ () => <Activities/>} />
       <Route path={"/home/:id"} exact render = { () => <Details/>}/>
     </div>

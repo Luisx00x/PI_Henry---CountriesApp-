@@ -22,64 +22,85 @@ export default function ButtonBar (props){
  const selectValues = ['Africa', 'Americas', 'Asia', 'Antarctic', 'Europe', 'Oceania'];
 
   return (
-    <>
 
-      <div className={s.buttonBar}>
+    <div className={s.buttonBar}>
 
-      {activities.length > 0 ? 
-      <select value={activitySelected} onChange={(e) => setActivitySelected(e.target.value)}>
-        <option
-        onClick={ () => { 
-          selectsReset(setContinentSelect, allCountries, dispatch)
-          setSelected( prev => "all") 
-        } } 
-        value="none">-- Seleccione una actividad --</option>
+      <div className={s.orderButtons}>
 
-        {activities ? activities.map( element => {
-          return <option 
-          key={element.searchName} 
-          value={element.searchName}
-          onClick={(e) => {
-            activitiesHandler(e, setContinentSelect, dispatch)
-          }}>{element.searchName}</option>
-        }) : null}
+        <div className={s.filtersTitel}>
+          <h4>Filtrar por:</h4>
+        </div>
         
-      </select> : null}
+        <div className={s.orders}>
 
-      {continentSelect ? null : 
-      <button onClick={ () => orderContinent(continentSort, countries, dispatch)}>
-        Ordenar por contienente
-      </button>}
+          {activities.length > 0 ? 
+          <select value={activitySelected} onChange={(e) => setActivitySelected(e.target.value)}>
+            <option
+            onClick={ () => { 
+              selectsReset(setContinentSelect, allCountries, dispatch)
+              setSelected( prev => "all") 
+            } } 
+            value="none">-- Seleccione una actividad --</option>
+
+            {activities ? activities.map( element => {
+              return <option 
+              key={element.searchName} 
+              value={element.searchName}
+              onClick={(e) => {
+                activitiesHandler(e, setContinentSelect, dispatch)
+              }}>{element.searchName}</option>
+            }) : null}
+            
+          </select> : null}
+
+          { activitySelected !== "none" ? null : 
+          <select id="select" value={selected} onChange={(e) => setSelected(e.target.value)} >
+            
+            <option value="all" onClick={() => selectsReset(setContinentSelect, allCountries, dispatch)}>
+            -- Mostrar todos --
+            </option>
+
+            { selectValues.map( element => {
+              return <option key={element} value={element} onClick={ (e) => {
+                selectHandler(e, allCountries, setContinentSelect, dispatch)
+              }}>{element}</option>
+            })}
       
-      { activitySelected !== "none" ? null : 
-      <select id="select" value={selected} onChange={(e) => setSelected(e.target.value)} >
-        
-        <option value="all" onClick={() => selectsReset(setContinentSelect, allCountries, dispatch)}>
-          Mostrar todos
-        </option>
+          </select>}
 
-        { selectValues.map( element => {
-          return <option key={element} value={element} onClick={ (e) => {
-            selectHandler(e, allCountries, setContinentSelect, dispatch)
-          }}>{element}</option>
-        })}
-    
-      </select>}
-
-      {<button onClick={() =>{
-        filtersButton("name", countries, names, allCountries, dispatch)
-        setNames( prev => prev === "DESC" ? "ASC" : "DESC")}}>
-        Alfabetico {names}
-      </button>}
-
-      {<button onClick={() =>{ 
-        filtersButton("population",countries, population, allCountries, dispatch) 
-        setPopulation( prev => prev === "DESC" ? "ASC" : "DESC")}}>
-        poblacion {population}
-      </button>}
-        
+        </div>
+      
       </div>
 
-    </>
+      <div className={s.orderButtons}>
+
+        <div className={s.orderTitle}>
+          <h4>Ordernar por:</h4>
+        </div>
+        
+        <div className={s.orders}>
+
+          {continentSelect ? null : 
+          <button onClick={ () => orderContinent(continentSort, countries, dispatch)}>
+            Continentes alfabeticamente de {continentSort === "ASC" ? "A-Z " : "Z-A"}
+          </button>}
+
+          {<button onClick={() =>{
+            filtersButton("name", countries, names, allCountries, dispatch)
+            setNames( prev => prev === "DESC" ? "ASC" : "DESC")}}>
+            { names === "DESC" ? "Países A-Z" : "Países Z-A"}
+          </button>}
+          
+          { <button onClick={() =>{ 
+            filtersButton("population",countries, population, allCountries, dispatch) 
+            setPopulation( prev => prev === "DESC" ? "ASC" : "DESC")}}>
+            { population === "DESC" ? "Población ascendente" : "Población descendente"}
+          </button>}
+
+        </div>
+
+      </div>
+        
+    </div>
   )
 }

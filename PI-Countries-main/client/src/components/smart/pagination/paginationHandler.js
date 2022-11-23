@@ -3,7 +3,7 @@ import { nextButton, firstElement, nextPage, setPage, prevButton } from "../../.
 
 export function nextbuttonHandler (currentIndex, maxLength, numberOfPages, dispatch){
 
-  if(currentIndex === maxLength || currentIndex > maxLength) return
+  if(currentIndex >= maxLength) return
 
   dispatch(nextButton())
   dispatch(firstElement(numberOfPages))
@@ -12,7 +12,7 @@ export function nextbuttonHandler (currentIndex, maxLength, numberOfPages, dispa
 }
 
 export function numberButtonHandler (page, numberOfPages, dispatch){
-
+  if(page === 0) numberOfPages = 9
   dispatch(setPage(page));
   dispatch(firstElement(numberOfPages));
   dispatch(nextPage(numberOfPages));

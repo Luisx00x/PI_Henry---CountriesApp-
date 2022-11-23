@@ -15,7 +15,7 @@ const router = Router();
 //RUTA NUEVA*  PASAR A GET Y PROBAR
 router.get('/countries/:country', countryId);
 
-router.get('/countries', nameQuery);
+router.get('/home', nameQuery);
 
 router.get('/countries', filters);
 

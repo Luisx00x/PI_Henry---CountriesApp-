@@ -15,7 +15,7 @@ export default function Pagination (props) {
 
   let numberOfPages = 10;
 
-  const lastPage = Math.ceil(maxLength/numberOfPages - 1)
+  const lastPage = Math.floor(maxLength/numberOfPages)
 
   return(
     <div>
@@ -37,19 +37,19 @@ export default function Pagination (props) {
 
       {actualPage > lastPage - 1 && lastPage > 6 ? 
       <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage - 5, numberOfPages, dispatch)}>
-        {actualPage - 4}</span> : null}
+        {actualPage - 4} </span> : null}
 
       {actualPage > lastPage - 2 && lastPage > 5 ? 
       <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage - 4, numberOfPages, dispatch)}>
-        {actualPage - 3}</span> : null}
+        {actualPage - 3} </span> : null}
       
       {actualPage > lastPage - 3 && lastPage > 6 ? 
       <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage - 3, numberOfPages, dispatch)}>
-        {actualPage - 2}</span> : null}
+        {actualPage - 2} </span> : null}
       
       {actualPage > 2 ? 
       <span  className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 2, numberOfPages, dispatch)}>
-        {actualPage - 1}</span> : null}
+        {actualPage - 1} </span> : null}
 
       {actualPage > 1 ? 
       <span  className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 1, numberOfPages, dispatch)}>

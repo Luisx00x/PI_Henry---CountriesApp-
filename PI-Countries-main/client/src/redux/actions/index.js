@@ -5,7 +5,8 @@ export function init (){
     return fetch('http://localhost:3001/countries')
     .then( res => res.json())
     .then( res => {
-      dispatch(fillAll(res.findData))
+      dispatch(addCountries(res.findData))
+      dispatch(fillAll(res.findAllCountries))
       dispatch(activitiesFilter(res.options.map(element => element)))
     })
     .catch( error => alert(error))
@@ -91,17 +92,10 @@ export function resetPag(){
   }
 }
 
-export function search(payload){    //POSIBLE PARA ELIMINAR
-  return {
-    type: "SEARCH_INPUT", 
-    payload
-  }
-}
-
 export function searchID(data){
   return function (dispatch){
     dispatch(loading()); 
-    fetch(`http://localhost:3001/countries?name=${data}`)  
+    fetch(`http://localhost:3001/home${data}`)  
     .then( res => res.json())
     .then( res => dispatch(addCountries(res)))     
     .catch( error => console.log(error))

@@ -14,7 +14,7 @@ export default class Navbar extends React.Component{
         <div className={s.links}>
         <NavLink className={s.navItem} activeClassName={s.selected} to='/home'>Home</NavLink>
         <NavLink className={s.navItem} activeClassName={s.selected} to='/activities'>Activities</NavLink>
-        <Route exact path={["/home"]} render={ () => <SearchBar />}/>
+        <Route exact path={["/home"]} render={ (location) => <SearchBar query={location} />}/>
         </div>
         
       </nav>

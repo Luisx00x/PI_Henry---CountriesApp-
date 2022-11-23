@@ -8,23 +8,25 @@ import Pagination from '../pagination/pagination.jsx';
 import ButtonBar from '../buttonBar/buttonBar.jsx';
 
 class Countries extends React.Component{
-  
+
   componentDidMount(){                       
     this.props.getCountries();
   }
-
+  
   render(){
 
     return (
       <div>
+
       <Pagination prev={this.props.prev} next={this.props.next}></Pagination>
 
-      <ButtonBar></ButtonBar>
+      { !this.props.query.search ? <ButtonBar></ButtonBar> : null }
       
         <div className={s.countries}>
 
           { 
             !this.props.loading ? 
+
             ( typeof this.props.countries !== "string" ? 
             this.props.countries
             .slice(this.props.firstElement , this.props.nextPage)
@@ -35,7 +37,9 @@ class Countries extends React.Component{
               id={ele.ID} 
               population={ele.population} 
               key={ele.ID}/>
-            } ) : <p>{this.props.countries}</p>) : 
+            } ) : 
+            
+            <p>{this.props.countries}</p>) : 
             <img className={s.loading} src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" 
             alt="loading" />
             
@@ -49,7 +53,7 @@ class Countries extends React.Component{
 
 function mapStatesToProps(state){
   return{
-    countries: state.countries, 
+    countries: state.countries,   
     loading: state.loading,
     firstElement: state.firstElement,
     nextPage: state.nextPage,
@@ -67,7 +71,7 @@ function mapDispatchToProps(dispatch){
     },
     prev: function (){
       dispatch(prevButton());
-    },
+    }
   }
 }
 

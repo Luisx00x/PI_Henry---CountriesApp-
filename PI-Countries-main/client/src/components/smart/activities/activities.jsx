@@ -40,10 +40,10 @@ export default function Activities (props) {
   }
 
   
-  async function postInfo(data, event){      //Data debe ser un objeto
+  async function postInfo(data, event){    
     
     event.preventDefault();
-    const interMessage = await fetch('http://localhost:3001/activities', {
+     await fetch('http://localhost:3001/activities', {
       mode: 'cors',
       method: 'POST',
       headers: {
