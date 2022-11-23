@@ -22,7 +22,16 @@ async function addActivities (req, res, next){
       const searchActivity = await Activity.findOne({
         where:{
           name: {
-            [Op.like]: name
+            [Op.eq]: name
+          },
+          dificulty: {
+            [Op.eq] : dificulty
+          },
+          duration: {
+            [Op.eq] : duration
+          },
+          season: {
+            [Op.eq] : season
           }
         },
         include: Country
@@ -41,12 +50,14 @@ async function addActivities (req, res, next){
       
       searchActivity.addCountry(countryAsociations);
       return res.status(201).json("Nuevos paises agregados a la actividad satisfactoriamente")
+ 
     }
 
     res.status(500).json("Activity post: Bad request")
 
   }catch(error){
     next(error);
+    
   }
 }
 

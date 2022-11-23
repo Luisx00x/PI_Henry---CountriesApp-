@@ -46,7 +46,6 @@ export default function CountryDetails (props) {
                 return <div key={element.id} className={s.activities_form}><li> <b className={s.nameLi}>{element.name}:</b></li> <span className={s.liItems}>Dificultad: {element.dificulty}</span> <span className={s.liItems}>Duración: {element.duration}</span> <span className={s.liItems}>Temporada: {element.season}</span></div> }) : 
                 <p className={s.liItems}>No hay actividades turisticas registradas para este país</p>) : 
                 null}
-              {/* Tiene que ser un condicional null porque la primera vez que monta es un undefined */}
           </ul>
 
         </div>

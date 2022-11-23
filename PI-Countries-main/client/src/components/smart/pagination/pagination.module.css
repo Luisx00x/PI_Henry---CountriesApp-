@@ -1,9 +1,12 @@
 
 .paginationBar{
+  width: 70%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin: auto;
-  background-color: rgb(240, 15, 15);
+  margin: 0 auto 1%;
+  background-color: rgb(255,255,255);
+  border-radius: 15px;
 }
 
 .paginationButton{
@@ -11,21 +14,30 @@
   justify-content: center;
   align-items: center;
   width: 10%;
+  min-width: fit-content;
   border: none;
   border-radius: 15px;
   cursor: pointer;
+  margin: 0 1%;
 }
+
+/* Boton con img */
+/* .prevButtonImg{
+  width: 20%;
+  padding-right: 10%;
+} */
 
 .prevButtonImg{
-  width: 20%;
-  padding-right: 10%;
+  transform: scaleX(-1);
 }
 
-.nextButtonImg{
-  width: 20%;
-  padding-right: 10%;
-  transform: scaleX(-1);
-  }
+.buttonText{
+  margin: 0 10px;
+}
+
+/* .nextButtonImg{
+  
+  } */
 
 .paginationItems{
   padding: 0 1%;

@@ -10,12 +10,13 @@ async function countries (req, res, next) {
     let externalApiCall = await axios('https://restcountries.com/v3/all');
 
     let map = externalApiCall.data.map( async el => {
-      
-      const verification = await Country.findByPk(el.cca3);
 
-      if(!verification){      
-          await Country.create({
-            ID: el.cca3,
+        await Country.findOrCreate({
+        where: {
+          ID: el.cca3
+        },
+        defaults: {
+          ID: el.cca3,
             name: Object.entries(el.translations).find( i => i[0] === "spa" ).pop().common,
             flag: el.flags[0],
             continent: el.region,
@@ -24,21 +25,21 @@ async function countries (req, res, next) {
             area: el.area,
             population: el.population,
             nameTranslations: el.name.common
-          })
-
         }
+      });
 
-      })
+    });
 
     await Promise.all(map);
 
     const findData = await Country.findAll({
-      attributes:['flag','name','continent','ID']
+      attributes:['flag','name','continent','ID'],
+      order: [
+        ['name','ASC']
+      ]
     });
 
-    let options = await Activity.findAll({
-      attributes: ['name']
-    })
+    let options = await Activity.findAll()
 
    res.status(200).json({findData,options})
 

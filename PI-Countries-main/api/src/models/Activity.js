@@ -9,12 +9,12 @@ module.exports = sequelize => {
             validate: {
                     validateSpaces: function (value) {
                         if(!/^\S/m.test(value) || (!/\S$/gm.test(value))){
-                            throw new Error ('No se permiten espacios en blanco al inicio ni al final')
+                            throw new Error ('ERROR: No se permiten espacios en blanco al inicio ni al final')
                         }
                     },
                     not: {
                         args: /[^A-Za-zÑ-ñ- ]/,
-                        msg: "El nombre de la actividad no debe tener simbolos"
+                        msg: "ERROR: El nombre de la actividad no debe tener simbolos"
                     }
             }
         },
@@ -34,6 +34,9 @@ module.exports = sequelize => {
             allowNull: false,
             validate: {
                 isNumeric: true
+            },
+            get(){
+                return `${this.getDataValue('duration')} horas`
             }
         },
         season: {
@@ -44,6 +47,12 @@ module.exports = sequelize => {
                     args: [['Verano','Primavera','Invierno','Otoño']],
                     msg: "Estación no existente"
                 }
+            }
+        },
+        searchName : {
+            type: DataTypes.VIRTUAL,
+            get(){
+                return `${this.name} DIF:${this.dificulty}`
             }
         }
     },

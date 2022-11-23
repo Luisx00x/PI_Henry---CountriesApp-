@@ -5,11 +5,9 @@ const initialState = {
   country: [],
   loading: false,
   actualPage: 0,
-  search: "",
-  names: "ASC",
+  search: "",     //SOLUCIONADO EL SEARCH, TENTATIVO A QUITAR
   firstElement: 0,
   nextPage: 9,
-  population: "DESC",
   activities: [],
   continentSort: "DESC"
 }
@@ -32,12 +30,6 @@ export default function reducer(state = initialState, action){
           countries: action.payload,
           allCountries: action.payload
         }
-
-        /* case "FILL_ALL":
-          return {
-            ...state,
-            allCountries: action.payload
-          } */
 
       case "ADD_COUNTRY":
         return {

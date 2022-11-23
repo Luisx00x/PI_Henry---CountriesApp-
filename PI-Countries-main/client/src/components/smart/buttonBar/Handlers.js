@@ -21,21 +21,6 @@ export function selectsReset (set, countries, dispatch) {
   set(false)
   }
 
-
-  //NO LO ESTOY USANDO
- /*  export function changeContinentHandler (e, set) {
-    set(e.target.value)
-  }
-  //TAMPOCO
-  export function changeActivityHandler (e, set) {
-    set( prev => {
-      return {
-        ...prev,
-        activitySelected: e.target.value
-      }
-    })
-  } */
-
   export function filtersButton (type, countries, order, allCountries, dispatch){
     if(countries < allCountries ) newCountries = countries.map(element => element.name).join();
     else newCountries = undefined

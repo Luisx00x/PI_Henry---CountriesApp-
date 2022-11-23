@@ -5,7 +5,8 @@ import Activity from "../../dumb/activity/activity";
 
 export default function Activities (props) {
 
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false)
   
   function inputHandler (e, set) {
     set( prev => {
@@ -52,14 +53,18 @@ export default function Activities (props) {
     })
     .then(res => res.json())
     .then(res => setMessage(res))
-    .catch(error => console.log(error))
+    .catch(error => {
+      setErrorMessage(true)
+      setMessage(error.message)
+    })
 
-    return interMessage
   }
  
   return (
     <>
-      <Activity submit={postInfo} inputHandler = {inputHandler} multipleInput = {multipleInputHandler} durationHandler = {durationHandler} message={message}></Activity>
+      <Activity submit={postInfo} inputHandler = {inputHandler} multipleInput = {multipleInputHandler}
+       durationHandler = {durationHandler} message={message} error={errorMessage}>       
+       </Activity>
     </>
   )
 

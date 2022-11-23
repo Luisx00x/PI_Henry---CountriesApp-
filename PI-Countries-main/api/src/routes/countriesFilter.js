@@ -2,7 +2,6 @@
 const {Country} = require('../db.js');
 const {Op} = require('sequelize');
 const {Activity} = require("../db.js")
-const {conn} = require("../db.js")
 
 async function filters (req, res, next){
   try{
@@ -68,13 +67,17 @@ async function filters (req, res, next){
 
       if(filter === "activities"){
         if(value !== "undefined"){
+
+          let modification = value.split(" DIF:");
+
           const orderActivities = await Activity.findAll({
             attributes: ["name"],
             include: {
               model: Country, attributes: ['name','capital','continent','ID','flag']
             },
             where: {
-              ['name']:[value]
+              ['name']:[modification[0]],
+              ['dificulty']: [modification[1]]
             }
           })
           return res.status(200).json(orderActivities)

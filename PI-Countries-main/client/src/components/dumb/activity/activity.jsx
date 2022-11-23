@@ -35,12 +35,17 @@ export default function Activity (props) {
     <button onClick={history.goBack}>Atras</button>
       <h2 className={s.title}>Agregar nueva actividad</h2>
 
-      {props.message ? <h3 className={s.successMessage}>{props.message}</h3> : null}
- 
+      {props.message ? 
+      <h3 className={ props.message.message || props.error ? s.failedMessage : s.successMessage}>
+        {props.message.message ? props.message.message : props.message}
+      </h3>  : null}
+      
         <form className={s.formStyle}>
           <div className={s.form_item}>
+
             <label className={s.labels}>Nombre de actividad: </label>
-            <input className={ error.nameError ? s.errorField : null } type="text" name="name" value={input.name} onChange={(e) => {
+            <input className={ error.nameError ? s.errorField : null } type="text" name="name" 
+            value={input.name} onChange={(e) => {
               props.inputHandler(e, setInput)
               nameValidator(e.target.value, setError)
             }
@@ -62,10 +67,12 @@ export default function Activity (props) {
           
           <div className={s.form_item}>
           
-            <label className={s.labels}>Duración: </label><input type="number" name="duration" value={input.duration} onChange={(e) => {
-              props.durationHandler(e, setInput)
-              durationValidator(e.target.value, setError)
-              }}/>
+            <label className={s.labels}>Duración: </label>
+            <input type="number" name="duration" className={s.durationInput} value={input.duration}
+              onChange={(e) => {
+                props.durationHandler(e, setInput)
+                durationValidator(e.target.value, setError)
+              }}/> <span>Horas</span>
             { !error.durationError ? null : <span className={s.error}>{error.durationError}</span>}
 
           </div>
@@ -84,16 +91,16 @@ export default function Activity (props) {
           
           <div>
 
-          <div className={s.select}>
-         
-            {
-              (countries.length === 0) ? <span>No se han cargado paises en la app</span> :
-              <select className={s.select} name="countryAsociations" multiple={true} value={input.countryAsociations} onChange ={ (e) => props.multipleInput(e, setInput)} >
-                {countries.map( element => <option key={element.ID} value={element.ID}>{element.name}</option> )}
-              </select>
-            }
+            <div className={s.select}>
+          
+              {
+                (countries.length === 0) ? <span>No se han cargado paises en la app</span> :
+                <select className={s.select} name="countryAsociations" multiple={true} value={input.countryAsociations} onChange ={ (e) => props.multipleInput(e, setInput)} >
+                  {countries.map( element => <option key={element.ID} value={element.ID}>{element.name}</option> )}
+                </select>
+              }
 
-          </div>
+            </div>
 
           </div>
 
@@ -108,7 +115,9 @@ export default function Activity (props) {
 
           <div className={s.select}>
             <input disabled={ error.nameError || error.dificultyError || error.durationError ||
-            error.season || input.name === "" || input.duration < 1 || typeof input.duration !== "number" || input.countryAsociations < 1 ? true : false} type="submit" value="Crear actividad turistica" onClick={ (e) => {
+            error.season || input.name === "" || input.duration < 1 || typeof input.duration !== "number" || 
+            input.countryAsociations < 1 ? true : false} type="submit" value="Crear actividad turistica" 
+            onClick={ (e) => {
               props.submit(input, e);
               setInput( prev => {
                 return  {

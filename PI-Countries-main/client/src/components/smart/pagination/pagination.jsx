@@ -1,9 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { firstElement, nextButton, nextPage, prevButton, setPage } from "../../../redux/actions";
 import s from "./pagination.module.css";
-
-//ME TENGO QUE TRAER EL CSS QUE USABA EN COUNTRIES
+import { nextbuttonHandler, numberButtonHandler, prevButtonHandler } from "./paginationHandler";
 
 export default function Pagination (props) {
 
@@ -19,69 +17,80 @@ export default function Pagination (props) {
 
   const lastPage = Math.ceil(maxLength/numberOfPages - 1)
 
-  function nextbuttonHandler (){
-
-    if(currentIndex === maxLength || maxLength < numberOfPages || currentIndex > maxLength) return
-
-    dispatch(nextButton())
-    dispatch(firstElement(numberOfPages))
-    dispatch(nextPage(numberOfPages))
-    
-  }
-
-  function numberButtonHandler (page){
-
-    dispatch(setPage(page));
-    dispatch(firstElement(numberOfPages));
-    dispatch(nextPage(numberOfPages));
-
-  }
-
-  function prevButtonHandler () {
-
-    if(actualPage === 0) return
-
-    if(actualPage === 1) numberOfPages = 9;
-    dispatch(prevButton())
-    dispatch(firstElement(numberOfPages))
-    dispatch(nextPage(numberOfPages))
-
-  }
-
   return(
-    <div className={s.paginationBar}>
-      { lastPage > 0 ? <div>
-
-      <button className={s.paginationButton} onClick={prevButtonHandler}>
-        <img className={s.prevButtonImg} src="http://www.clipartbest.com/cliparts/niB/RBa/niBRBadqT.jpg" alt="prev" onClick={prevButtonHandler}/>
-        <span>Anterior</span>
+    <div>
+      
+      { lastPage > 0 ? <div className={s.paginationBar}>
+      <button className={s.paginationButton} onClick={() => { 
+      prevButtonHandler(actualPage, numberOfPages, dispatch)}}>
+        <svg className={s.prevButtonImg} viewBox="2 -1 10 8">
+          <polygon points="0 0, 10 3.5, 0 7" /> 
+        </svg>
+        <span className={s.buttonText}>Anterior</span>
       </button>
-        
-      {actualPage > 0 ? <span  className={s.paginationItems}onClick={ () => numberButtonHandler(0)}>{1}</span> : null}
+          
+      {actualPage > 0 ? 
+      <span  className={s.paginationItems} onClick={ () => numberButtonHandler(0, numberOfPages, dispatch)}>
+      {1}</span> : null}
+
       {actualPage > 3 ? <label> ... </label> : null}
 
-      {actualPage > lastPage - 1 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 5)}>{actualPage - 4}</span> : null}
-      {actualPage > lastPage - 2 && lastPage > 5 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 4)}>{actualPage - 3}</span> : null}
-      {actualPage > lastPage - 3 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 3)}>{actualPage - 2}</span> : null}
+      {actualPage > lastPage - 1 && lastPage > 6 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage - 5, numberOfPages, dispatch)}>
+        {actualPage - 4}</span> : null}
+
+      {actualPage > lastPage - 2 && lastPage > 5 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage - 4, numberOfPages, dispatch)}>
+        {actualPage - 3}</span> : null}
       
-      {actualPage > 2 ? <span  className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 2)}>{actualPage - 1}</span> : null}
-      {actualPage > 1 ? <span  className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 1)}>{actualPage}</span> : null}
+      {actualPage > lastPage - 3 && lastPage > 6 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage - 3, numberOfPages, dispatch)}>
+        {actualPage - 2}</span> : null}
       
+      {actualPage > 2 ? 
+      <span  className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 2, numberOfPages, dispatch)}>
+        {actualPage - 1}</span> : null}
+
+      {actualPage > 1 ? 
+      <span  className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage - 1, numberOfPages, dispatch)}>
+        {actualPage}</span> : null}
+      
+
       {<span className={s.paginationItemSelected}>{actualPage + 1}</span>}
       
-      {actualPage < lastPage - 1 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 1)}>{actualPage + 2}</span> : null}
-      {actualPage < lastPage - 2 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 2)}>{actualPage + 3}</span> : null}
+
+      {actualPage < lastPage - 1 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage + 1, numberOfPages, dispatch)}>
+        {actualPage + 2}</span> : null}
+
+      {actualPage < lastPage - 2 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage + 2, numberOfPages, dispatch)}>
+        {actualPage + 3}</span> : null}
     
-      {actualPage < 3 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 3)}>{actualPage + 4}</span> : null}
-      {actualPage < 2 && lastPage > 5 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 4)}>{actualPage + 5}</span> : null}
-      {actualPage < 1 && lastPage > 6 ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(actualPage + 5)}>{actualPage + 6}</span> : null}
+      {actualPage < 3 && lastPage > 6 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage + 3, numberOfPages, dispatch)}>
+        {actualPage + 4}</span> : null}
+
+      {actualPage < 2 && lastPage > 5 ?
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage + 4, numberOfPages, dispatch)}>
+        {actualPage + 5}</span> : null}
+
+      {actualPage < 1 && lastPage > 6 ? 
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(actualPage + 5, numberOfPages, dispatch)}>
+        {actualPage + 6}</span> : null}
       
       {actualPage < lastPage - 3 ? <label> ... </label> : null}
-      {actualPage < lastPage ? <span className={s.paginationItems}onClick={ () => numberButtonHandler(lastPage)}>{lastPage + 1}</span> : null}     
 
-      <button className={s.paginationButton} onClick={nextbuttonHandler}>
-        <span>Siguiente</span>
-        <img className={s.nextButtonImg} src="http://www.clipartbest.com/cliparts/niB/RBa/niBRBadqT.jpg" alt="next"></img>
+      {actualPage < lastPage ?
+      <span className={s.paginationItems} onClick={ () => numberButtonHandler(lastPage, numberOfPages, dispatch)}>
+        {lastPage + 1}</span> : null}     
+
+      <button className={s.paginationButton} onClick={ () => {
+        nextbuttonHandler(currentIndex, maxLength, numberOfPages, dispatch) } }>
+        <span className={s.buttonText}>Siguiente</span>
+        <svg className={s.nextButtonImg} viewBox="2 -1 8 8">
+          <polygon points="0 0, 10 3.5, 0 7" /> 
+        </svg>
       </button>
       
       </div> : null}

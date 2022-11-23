@@ -6,9 +6,9 @@ export function init (){
     .then( res => res.json())
     .then( res => {
       dispatch(fillAll(res.findData))
-      dispatch(activitiesFilter(res.options.map(element => element.name)))
+      dispatch(activitiesFilter(res.options.map(element => element)))
     })
-    .catch( error => console.log(error))
+    .catch( error => alert(error))
   }
 }
 
@@ -26,17 +26,15 @@ export function orderBy(filter, order, value){
     const callAPI = fetch(`http://localhost:3001/countries?filter=${filter}&type=${order}&value=${value}`)
     
     if(filter === "population" || filter === "name"){
-      if(filter === "population") dispatch(populationSort());
-      if(filter === "name") dispatch(namesSort());
       callAPI.then( res => res.json())
       .then( res => dispatch(addCountries(res)))
-      .catch( error => console.log(error))
+      .catch( error => alert(error.message))
     }
 
     if(filter === "activities") {
       callAPI.then( res => res.json())
       .then( res => dispatch(addCountries(res[0].countries)))
-      .catch(error => console.log(error))
+      .catch(error => alert(error))
     }
   }
 }
@@ -93,7 +91,7 @@ export function resetPag(){
   }
 }
 
-export function search(payload){
+export function search(payload){    //POSIBLE PARA ELIMINAR
   return {
     type: "SEARCH_INPUT", 
     payload
@@ -124,18 +122,6 @@ export function addCountry(payload){
   return {
     type: "ADD_COUNTRY",
     payload
-  }
-}
-
-export function populationSort(){
-  return {
-    type: "POPULATION_SWITCH"
-  }
-}
-
-export function namesSort(){
-  return {
-    type: "NAMES_SWITCH"
   }
 }
 
