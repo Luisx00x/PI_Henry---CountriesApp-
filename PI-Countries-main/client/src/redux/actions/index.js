@@ -131,3 +131,13 @@ export function activitiesFilter (payload){
     payload
   }
 }
+
+export function filtroNuevo (){
+  return function (dispatch){
+    fetch('http://localhost:3001/pruebaRuta')
+    .then( res => console.log(res))
+    .then( res => res.json())
+    .then( dispatch(addCountries))
+    .catch( error => alert(error))
+  }
+}

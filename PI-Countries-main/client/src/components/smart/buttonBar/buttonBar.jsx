@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectsReset, activitiesHandler, filtersButton, selectHandler, orderContinent} from './Handlers.js'
 import s from './buttonBar.module.css'
+import { filtroNuevo } from "../../../redux/actions/index.js";
 
 export default function ButtonBar (props){
 
@@ -96,6 +97,10 @@ export default function ButtonBar (props){
             setPopulation( prev => prev === "DESC" ? "ASC" : "DESC")}}>
             { population === "DESC" ? "Población ascendente" : "Población descendente"}
           </button>}
+
+          <button onClick={()=> dispatch(filtroNuevo)}>
+              Filtro Nuevo
+          </button>
 
         </div>
 
