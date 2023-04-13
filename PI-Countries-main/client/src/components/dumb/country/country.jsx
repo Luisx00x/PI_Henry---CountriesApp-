@@ -3,9 +3,6 @@ import { NavLink } from "react-router-dom";
 import s from './country.module.css';
 
 export default class Country extends React.Component{
-  constructor(props){
-    super(props);
-  }
 
   render(){
 

@@ -17,7 +17,7 @@ export default function Details (props){
 
   useEffect( () => {
     dispatch(searchCountryByID(params.id))
-  }, [])
+  })
 
   return (
     <>

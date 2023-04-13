@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import s from './searchBar.module.css';
 import {resetPag, searchID} from '../../../redux/actions';
 import { useHistory, useLocation } from 'react-router-dom';

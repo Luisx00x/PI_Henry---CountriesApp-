@@ -3,9 +3,7 @@ import { NavLink } from 'react-router-dom';
 import s from './landing.module.css';
 
 export default class Landing extends React.Component{
-  constructor(props){
-    super(props)
-  }
+
   render(){
     return (
       <>
