@@ -5,8 +5,9 @@ import {Route} from 'react-router-dom';
 import Landing from './components/dumb/landing/landing';
 import Details from './components/smart/details/details.jsx';
 import Activities from './components/smart/activities/activities';
+export const BACK_URL = 'https://pihenry-countriesapp-backend-production.up.railway.app';
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <Route path={"/"} exact component={Landing}/>
@@ -20,4 +21,3 @@ function App() {
   );
 }
 
-export default App;

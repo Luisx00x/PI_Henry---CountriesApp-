@@ -1,5 +1,4 @@
-
-const BACK_URL = 'https://pihenry-countriesapp-backend-production.up.railway.app';
+import { BACK_URL } from "../../App.js";
 
 export function init (){
   return function(dispatch){
