@@ -1,4 +1,4 @@
-const BACK_URL = process.env.BACK_URL || 'http://localhost:3001';
+const BACK_URL = process.env.REACT_APP_BACK_URL || 'http://localhost:3001';
 
 export function init (){
   return function(dispatch){
