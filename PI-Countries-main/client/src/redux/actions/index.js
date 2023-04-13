@@ -1,8 +1,9 @@
+const {BACK_URL} = process.env || 'http://localhost:3001';
 
 export function init (){
   return function(dispatch){
     dispatch(loading());
-    return fetch('http://localhost:3001/countries')
+    return fetch(BACK_URL + '/countries')
     .then( res => res.json())
     .then( res => {
       dispatch(addCountries(res.findData))
@@ -24,7 +25,7 @@ export function orderBy(filter, order, value){
 
   return function (dispatch){
     dispatch(loading());
-    const callAPI = fetch(`http://localhost:3001/countries?filter=${filter}&type=${order}&value=${value}`)
+    const callAPI = fetch(`${BACK_URL}/countries?filter=${filter}&type=${order}&value=${value}`)
     
     if(filter === "population" || filter === "name"){
       callAPI.then( res => res.json())
@@ -95,7 +96,7 @@ export function resetPag(){
 export function searchID(data){
   return function (dispatch){
     dispatch(loading()); 
-    fetch(`http://localhost:3001/home${data}`)  
+    fetch(`${BACK_URL}/home${data}`)  
     .then( res => res.json())
     .then( res => dispatch(addCountries(res)))     
     .catch( error => console.log(error))
@@ -105,7 +106,7 @@ export function searchID(data){
 export function searchCountryByID(data){
   return function(dispatch){
     dispatch(loading());
-    fetch(`http://localhost:3001/countries/${data}`)
+    fetch(`${BACK_URL}/countries/${data}`)
     .then( res => res.json())
     .then( res => dispatch(addCountry(res)))
     .catch( error => console.log(error))
@@ -134,7 +135,7 @@ export function activitiesFilter (payload){
 
 export function filtroNuevo (){
   return function (dispatch){
-    fetch('http://localhost:3001/pruebaRuta')
+    fetch(BACK_URL + '/pruebaRuta')
     .then( res => console.log(res))
     .then( res => res.json())
     .then( dispatch(addCountries))
