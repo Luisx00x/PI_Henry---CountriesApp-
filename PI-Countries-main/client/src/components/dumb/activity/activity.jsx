@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import s from './activity.module.css';
-import { durationValidator, nameValidator } from "./validationHandlers";
+import { durationValidator, nameValidator } from "./validationHandlers.js";
 
 export default function Activity (props) {
 

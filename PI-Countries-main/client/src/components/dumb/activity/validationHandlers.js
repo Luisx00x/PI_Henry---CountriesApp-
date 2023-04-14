@@ -1,5 +1,5 @@
 
-function nameValidator (name, set) {
+export function nameValidator (name, set) {
   if(!/^\S/m.test(name)){
     set(prev => {     
       return {
@@ -32,7 +32,7 @@ function nameValidator (name, set) {
   });
 }
 
-function durationValidator(duration, set){
+export function durationValidator(duration, set){
   
   if(duration < 0){
     set( prev =>{
@@ -58,10 +58,4 @@ function durationValidator(duration, set){
       }
     })
   }
-}
-
-
-module.exports = {
-  nameValidator,
-  durationValidator
 }
