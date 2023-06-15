@@ -6,17 +6,32 @@ img{
 }
 
 .country{
-  margin: 1%;
+  margin: 3%;
   border-radius: 15px;
   width: 50vh;
   padding: 2%;
   background-color: rgba(180, 205, 245, 0.8);
   box-shadow: 5px 10px rgb(120, 147, 190);
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.country:hover{
+  border: 1px solid rgb(180, 205, 245);
+  box-shadow: 
+    0 0 5px 10px rgb(180, 205, 245);
+  background-color:rgb(120, 147, 190);
+  width: 65vh;
 }
 
 .countryLink{
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   color: #000;
+}
+
+@media (min-width: 1080px){
+  .country{
+    margin: 1%;
+  }
 }
