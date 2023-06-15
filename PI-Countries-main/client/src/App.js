@@ -5,7 +5,7 @@ import {Route} from 'react-router-dom';
 import Landing from './components/dumb/landing/landing';
 import Details from './components/smart/details/details.jsx';
 import Activities from './components/smart/activities/activities';
-export const BACK_URL = 'https://pihenry-countriesapp-backend-production.up.railway.app';
+export const BACK_URL = process.env.REACT_APP_BACK_URL;
 
 export function App() {
   return (
