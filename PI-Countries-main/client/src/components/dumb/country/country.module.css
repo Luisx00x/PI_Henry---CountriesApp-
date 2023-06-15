@@ -21,7 +21,9 @@ img{
   box-shadow: 
     0 0 5px 10px rgb(180, 205, 245);
   background-color:rgb(120, 147, 190);
-  width: 65vh;
+
+  width: 60vh;
+
 }
 
 .countryLink{

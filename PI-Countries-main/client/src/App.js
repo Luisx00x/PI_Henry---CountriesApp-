@@ -7,6 +7,8 @@ import Details from './components/smart/details/details.jsx';
 import Activities from './components/smart/activities/activities';
 export const BACK_URL = process.env.REACT_APP_BACK_URL;
 
+console.log(BACK_URL)
+
 export function App() {
   return (
     <div className="App">

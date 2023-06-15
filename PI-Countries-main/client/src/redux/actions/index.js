@@ -3,6 +3,7 @@ import { BACK_URL } from "../../App.js";
 export function init (){
   return function(dispatch){
     dispatch(loading());
+    console.log(BACK_URL + '/countries')
     return fetch(BACK_URL + '/countries')
     .then( res => res.json())
     .then( res => {
