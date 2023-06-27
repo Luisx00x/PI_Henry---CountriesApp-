@@ -11,29 +11,23 @@ export default function SearchBar (props){
   const [result, setResult] = useState([]);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const fetchController = new AbortController();
 
   const allCountries = useSelector(state => state.allCountries)
   
   useEffect( () => {
       if(isLoading){
         try{
-          fetch(`${BACK_URL}/home/?name=${input}`,
-          {
-            signal: fetchController.signal
-          })
+          fetch(`${BACK_URL}/home/?name=${input}`)
           .then(res => res.json())
           .then(res => {
             setResult( prev => [...res]);
             setIsLoading(false);
           })
         }catch(err){
-          
+          console.log(err)
         } 
       };
   },[input, allCountries])
-  
-  console.log(result)
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -58,10 +52,7 @@ export default function SearchBar (props){
           type="search"
           list="countriesList"
           placeholder="Nombre de país..."
-          onChange={(e) => {
-            handleInput(e)
-            fetchController.abort();
-          }}
+          onChange={(e) => handleInput(e)}
           vlue = {input}
           className={s.input}
           />
@@ -77,8 +68,6 @@ export default function SearchBar (props){
           />
 
       </form>
-
-      {console.log(isLoading)}
 
       <datalist id="countriesList">
         {
